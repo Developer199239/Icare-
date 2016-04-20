@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_add_profile"
+            android:title="@string/add_profile_menu" />
+        <item
+            android:id="@+id/nav_view_profiles"
+            android:title="@string/view_profiles_menu" />
+        <item
+            android:id="@+id/nav_health_center"
+            android:title="@string/health_center_menu" />
+        <item
+            android:id="@+id/nav_change_password"
+            android:title="@string/change_password_menu" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="@string/logout_menu" />
+    </group>
+
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="Share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        <!--</menu>-->
+    <!--</item>-->
+
+</menu>

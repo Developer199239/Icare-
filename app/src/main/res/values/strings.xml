@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">ICare</string>
+    <!--Button Text-->
+    <string name="signIn_Bt">Sign In</string>
+    <string name="add_Bt">Add</string>
+    <string name="cancel_Bt">Cancel</string>
+    <string name="dob_Bt">Pick Birth Date</string>
+    <string name="changePassword_Bt">Change Password</string>
+    <string name="add_diet_Bt">Add Diet</string>
+    <string name="date_Bt">Pick Date</string>
+    <string name="time_Bt">Pick Time</string>
+
+
+    <!--EditText Hints-->
+    <string name="password_ht">Password</string>
+    <string name="userName_ht">User Name</string>
+    <string name="name_ht">Put Name</string>
+    <string name="height_ht">Height in c.m.</string>
+    <string name="weight_ht">Weight in c.m.</string>
+    <string name="major_dis_ht">Put Major Disease</string>
+    <string name="currentPassword_ht">Put Current Password</string>
+    <string name="newPassword_ht">Put New Password</string>
+    <string name="menu_ht">Put Your Menu</string>
+
+
+    <!--TextField -->
+    <string name="welcome_tx">Welcome</string>
+    <string name="to_tx">To</string>
+    <string name="icare_tx">ICare System</string>
+    <string name="name_tx">Name</string>
+    <string name="relation_tx">Relation</string>
+    <string name="age_tx">Age</string>
+    <string name="height_tx">Height</string>
+    <string name="weight_tx">Weight</string>
+    <string name="major_dis_tx">Major Disease</string>
+    <string name="blood_group_tx">Blood Group</string>
+    <string name="chagePassword_tx">Change Password</string>
+                        <!-- add deit-->
+    <string name="select_diet_tx">Select Diet Type</string>
+    <string name="menu_tx">Menu</string>
+    <string name="date_tx">Date</string>
+    <string name="time_tx">Time</string>
+    <string name="daily_alarm_tx">Dialy Alarm</string>
+    <string name="reminder_tx">Reminder</string>
+
+
+
+
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- menu bar text-->
+    <string name="add_profile_menu">Add Profile</string>
+    <string name="view_profiles_menu">View Profiles</string>
+    <string name="health_center_menu">Health Center</string>
+    <string name="change_password_menu">Change Password</string>
+    <string name="logout_menu">Logout</string>
+
+    <!-- menu bar for person home-->
+    <string name="add_diet_menu">Add Diet</string>
+    <string name="view_diet_menu">View Diet Chart</string>
+    <string name="add_vaccination_menu">Add Vaccination</string>
+    <string name="all_vaccination_menu">All Vaccination</string>
+    <string name="personal_doctor_menu">Personal Doctor</string>
+    <string name="medical_history_menu">Medical History</string>
+
+
+        <!-- spinner -->
+    <!-- relation  -->
+    <string-array name="releation_combo">
+        <item>MySelf</item>
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Cousin</item>
+        <item>Uncle</item>
+        <item>Aunt</item>
+        <item>Grand\'pa</item>
+        <item>Grand\'ma</item>
+        <item>Hubby</item>
+        <item>Wife</item>
+    </string-array>
+
+    <!-- blood group -->
+    <string-array name="bloodGroup_combo">
+        <item>O+</item>
+        <item>O–</item>
+        <item>A+</item>
+        <item>A–</item>
+        <item>B+</item>
+        <item>B–</item>
+        <item>AB+</item>
+        <item>AB–</item>
+    </string-array>
+
+    <!-- blood group -->
+    <string-array name="deit_combo">
+        <item>Breakfast</item>
+        <item>lunch</item>
+        <item>dinar</item>
+    </string-array>
+
+
+
+</resources>
