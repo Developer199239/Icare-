@@ -2,36 +2,53 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_home"
             android:title="Home" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_view_profiles"
             android:title="@string/view_profiles_menu" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_add_diet"
             android:title="@string/add_diet_menu" />
-        <item
-            android:id="@+id/nav_view_diet"
-            android:title="@string/view_diet_menu" />
-
-        <item
-            android:id="@+id/nav_add_vaccination"
-            android:title="@string/add_vaccination_menu" />
-        <item
-            android:id="@+id/nav_all_vaccination"
-            android:title="@string/all_vaccination_menu" />
-        <item
-            android:id="@+id/nav_personal_doctor"
-            android:title="@string/personal_doctor_menu" />
-        <item
-            android:id="@+id/nav_medical_history"
-            android:title="@string/medical_history_menu" />
-        <item
-            android:id="@+id/nav_logout"
-            android:title="@string/logout_menu" />
     </group>
 
+    <item android:title="View Diet">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_today_chart"
+                    android:title="Todays Chart" />
+                <item
+                    android:id="@+id/nav_upcomminng_chart"
+                    android:title="Upcoming Chart" />
+                <item
+                    android:id="@+id/pre_chart"
+                    android:title="Previous Chart" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/nav_add_vaccination"
+        android:title="@string/add_vaccination_menu" />
+    <item
+        android:id="@+id/nav_all_vaccination"
+        android:title="@string/all_vaccination_menu" />
+    <item
+        android:id="@+id/nav_personal_doctor"
+        android:title="@string/personal_doctor_menu" />
+    <item
+        android:id="@+id/nav_medical_history"
+        android:title="@string/medical_history_menu" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/logout_menu" />
 
 </menu>

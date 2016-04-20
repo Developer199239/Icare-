@@ -35,15 +35,13 @@
     <string name="major_dis_tx">Major Disease</string>
     <string name="blood_group_tx">Blood Group</string>
     <string name="chagePassword_tx">Change Password</string>
-                        <!-- add deit-->
+    <!-- add deit-->
     <string name="select_diet_tx">Select Diet Type</string>
     <string name="menu_tx">Menu</string>
     <string name="date_tx">Date</string>
     <string name="time_tx">Time</string>
     <string name="daily_alarm_tx">Dialy Alarm</string>
     <string name="reminder_tx">Reminder</string>
-
-
 
 
     <string name="title_activity_home">Home</string>
@@ -67,7 +65,7 @@
     <string name="medical_history_menu">Medical History</string>
 
 
-        <!-- spinner -->
+    <!-- spinner -->
     <!-- relation  -->
     <string-array name="releation_combo">
         <item>MySelf</item>
@@ -103,6 +101,8 @@
         <item>dinar</item>
     </string-array>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

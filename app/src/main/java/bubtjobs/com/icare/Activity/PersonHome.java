@@ -18,6 +18,9 @@ import bubtjobs.com.icare.Fragment.Add_Profile;
 import bubtjobs.com.icare.Fragment.Add_diet;
 import bubtjobs.com.icare.Fragment.ChangePassword;
 import bubtjobs.com.icare.Fragment.GeneralInfo;
+import bubtjobs.com.icare.Fragment.Previous_diet_chart;
+import bubtjobs.com.icare.Fragment.Today_diet_chart;
+import bubtjobs.com.icare.Fragment.UpComing_diet_chart;
 import bubtjobs.com.icare.Fragment.View_All_Profile;
 import bubtjobs.com.icare.R;
 
@@ -94,9 +97,20 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
             toolbar.setTitle("Add Diet");
             currentFragment=new Add_diet();
         }
-        else if(id==R.id.nav_view_diet)
+        else if(id==R.id.nav_today_chart)
         {
-
+            toolbar.setTitle("Today's Diet Chart");
+            currentFragment=new Today_diet_chart();
+        }
+        else if(id==R.id.nav_upcomminng_chart)
+        {
+            toolbar.setTitle("UpComming Diet Chart");
+            currentFragment=new UpComing_diet_chart();
+        }
+        else if(id==R.id.pre_chart)
+        {
+            toolbar.setTitle("Previous Diet Chart");
+            currentFragment=new Previous_diet_chart();
         }
         else if(id==R.id.nav_add_vaccination)
         {
