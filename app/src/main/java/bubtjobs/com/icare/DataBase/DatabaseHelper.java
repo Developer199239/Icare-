@@ -31,6 +31,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String COL_MENU="menu";
     static final String COL_DATE="date";
     static final String COL_TIME="time";
+    static final String COL_HOUR="hour";
+    static final String COL_MINUTE="minute";
+    static final String COL_FORMATE="formate";
     static final String COL_ALARM_TYPE="alarm_type";
     static final String COL_ALARM_CODE="alarm_code";
 
@@ -50,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //crate table user
     String CREATE_TABLE_USER=" CREATE TABLE " + TABLE_USER + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_NAME +" TEXT," +COL_RELATION +" TEXT,"+COL_AGE +" TEXT,"+COL_HEIGHT +" TEXT,"+COL_WEIGHT +" TEXT,"+COL_MAJOR_DIS +" TEXT,"+COL_BLOOD +" TEXT,"+COL_STATUS +" TEXT )";
     //create table diet
-    String CREATE_TABLE_DIET=" CREATE TABLE " + TABLE_DIET + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT,"+ COL_DIET_TYPE +" TEXT,"+ COL_MENU +" TEXT,"+ COL_DATE +" TEXT,"+ COL_TIME +" TEXT,"+ COL_ALARM_TYPE +" TEXT,"+ COL_ALARM_CODE +" TEXT," +COL_STATUS +" TEXT )";
+    String CREATE_TABLE_DIET=" CREATE TABLE " + TABLE_DIET + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT,"+ COL_DIET_TYPE +" TEXT,"+ COL_MENU +" TEXT,"+ COL_DATE +" TEXT,"+ COL_HOUR +" TEXT,"+ COL_MINUTE +" TEXT,"+ COL_FORMATE +" TEXT,"+ COL_ALARM_TYPE +" TEXT,"+ COL_ALARM_CODE +" TEXT," +COL_STATUS +" TEXT )";
 
     // create table vaccination
     String CREATE_TABLE_VACCINATION=" CREATE TABLE " + TABLE_VACCINATION + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT,"+ COL_DATE +" TEXT,"+ COL_TIME +" TEXT,"+COL_DETAILS +" TEXT,"+ COL_ALARM_TYPE +" TEXT,"+ COL_ALARM_CODE +" TEXT," +COL_STATUS +" TEXT )";

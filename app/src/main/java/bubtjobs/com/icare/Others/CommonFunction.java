@@ -1,6 +1,7 @@
 package bubtjobs.com.icare.Others;
 
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -25,5 +26,11 @@ public class CommonFunction {
         if(etText.getText().toString().trim().length()>0)
             return true;
         return false;
+    }
+    public  boolean checkButtonValue(Button button,String text){
+        if(button.getText().toString().equals(text))
+            return false;
+        else
+            return true;
     }
 }
