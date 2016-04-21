@@ -24,6 +24,7 @@ import java.text.Format;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import bubtjobs.com.icare.Alarm_Manager.Alarm;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Others.CommonFunction;
@@ -47,6 +48,7 @@ public class Add_diet extends Fragment {
     DataBaseManager manager;
     SessionManager sessionManager;
     Diet_Input input;
+    Alarm alarm;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_add_diet, container, false);
@@ -58,6 +60,7 @@ public class Add_diet extends Fragment {
         function=new CommonFunction();
         manager=new DataBaseManager(getActivity());
         sessionManager=new SessionManager(getActivity());
+        alarm=new Alarm(getActivity());
     }
     //====================================== add diet======================
     @OnClick(R.id.add_diet_bt)
@@ -86,6 +89,7 @@ public class Add_diet extends Fragment {
                 input=new Diet_Input(userId,diet_type,menu,date,hour,minute,TimeFormat,alarmType,""+alarmcode,"1");
                 Boolean insert=manager.addDiet(input);
                 if(insert) {
+                    alarm.setAlarm();
                     Toast.makeText(getActivity(), "Add diet successfully ", Toast.LENGTH_SHORT).show();
                 }
                 else
