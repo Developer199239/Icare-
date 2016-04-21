@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import bubtjobs.com.icare.Adapter.DietAdapter;
+import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Diet;
 import bubtjobs.com.icare.R;
 import butterknife.Bind;
@@ -26,25 +27,29 @@ public class Today_diet_chart extends Fragment {
     ArrayList<Diet> toDayDietList;
     @Bind(R.id.todayDietListView) ListView todayDietListView;
     Diet today_diet;
+    DataBaseManager manager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_diet_chart, container, false);
         ButterKnife.bind(this, view);
 
-        toDayDietList=new ArrayList<>();
-        today_diet=new Diet("1","Breakfast","Ruti","10:00 AM","12/12/12");
-        toDayDietList.add(today_diet);
-        today_diet=new Diet("2","Launch","Vat,del...","02:00 PM","12/12/12");
-        toDayDietList.add(today_diet);
-        today_diet=new Diet("3","Dinar","Vat,del,dim","10:00 PM","12/12/12");
-        toDayDietList.add(today_diet);
+        manager=new DataBaseManager(getActivity());
 
-        if(toDayDietList!=null)
+//        String temp=manager.getTodayDiet();
+//        Toast.makeText(getActivity(), temp, Toast.LENGTH_LONG).show();
+
+
+        toDayDietList=new ArrayList<>();
+       // Toast.makeText(getActivity(), manager.getTodayDiet(), Toast.LENGTH_LONG).show();
+
+        toDayDietList=manager.getTodayDiet();
+
+        if(toDayDietList!=null && toDayDietList.size()>0)
         {
             DietAdapter adapter=new DietAdapter(view.getContext(),toDayDietList);
             todayDietListView.setAdapter(adapter);
         }
-        else{
+        else {
             Toast.makeText(getActivity(), "Todays DietList Not Available", Toast.LENGTH_LONG).show();
         }
 
@@ -61,5 +66,7 @@ public class Today_diet_chart extends Fragment {
 
         return  view;
     }
+
+
 
 }

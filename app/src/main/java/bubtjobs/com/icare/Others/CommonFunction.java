@@ -4,7 +4,9 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -50,7 +52,7 @@ public class CommonFunction {
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         String monthTemp=String.valueOf(cal.get(Calendar.MONTH) + 1);
         String dayTemp=String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-        int currentHour=cal.get(Calendar.HOUR);
+        int currentHour=cal.get(Calendar.HOUR_OF_DAY);
         int currentMinute=cal.get(Calendar.MINUTE);
 
         if(monthTemp.length()==1)
@@ -98,6 +100,7 @@ public class CommonFunction {
         if(isCorrect==false)
         {
             return Long.parseLong("-1");
+           // return "";
         }
         else
         {
@@ -124,10 +127,11 @@ public class CommonFunction {
 
             Long finalInterval=Year+Month+Day+Hour+Minute;
             return finalInterval;
+            //return " y="+Year+" m= "+Month+" d= "+Day+" h= "+Hour+"  m= "+Minute+" c="+currentHour;
         }
     }
     // =============================== alarmCode Generate ==================================================
-    public Long alarmCodeGenerate(){
+    public int alarmCodeGenerate(){
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         String y=String.valueOf(cal.get(Calendar.YEAR));
         String m=String.valueOf(cal.get(Calendar.MONTH));
@@ -136,7 +140,22 @@ public class CommonFunction {
         String min=String.valueOf(cal.get(Calendar.MINUTE));
         String sec=String.valueOf(cal.get(Calendar.SECOND));
 
-        Long code=Long.parseLong(String.valueOf(y+m+d+h+min+sec));
+        int code=Integer.parseInt(String.valueOf(m + d + h + min + sec));
         return code;
+    }
+
+    public String currentDate(){
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        String year=String.valueOf(cal.get(Calendar.YEAR));
+        String monthTemp=String.valueOf(cal.get(Calendar.MONTH) + 1);
+        String dayTemp=String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+
+        if(monthTemp.length()==1)
+            monthTemp="0"+monthTemp;
+        if(dayTemp.length()==1)
+            dayTemp="0"+dayTemp;
+
+        return year+monthTemp+dayTemp;
+
     }
 }

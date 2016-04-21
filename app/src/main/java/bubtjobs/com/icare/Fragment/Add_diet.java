@@ -77,6 +77,7 @@ public class Add_diet extends Fragment {
 
 
             Long value=function.validAlarm(YY, MM, DD, TimeFormat, H, M);
+           // Toast.makeText(getActivity(), ""+value, Toast.LENGTH_SHORT).show();
             if(value==-1)
             {
                 Toast.makeText(getActivity(), "Invalid date and time selection", Toast.LENGTH_SHORT).show();
@@ -85,12 +86,12 @@ public class Add_diet extends Fragment {
                 String userId=sessionManager.getCurrentPersonId();
                 String hour=String.valueOf(H);
                 String minute=String.valueOf(M);
-                Long alarmcode=function.alarmCodeGenerate();
+                int alarmcode=function.alarmCodeGenerate();
                 input=new Diet_Input(userId,diet_type,menu,date,hour,minute,TimeFormat,alarmType,""+alarmcode,"1");
                 Boolean insert=manager.addDiet(input);
                 if(insert) {
-                    alarm.setAlarm();
-                    Toast.makeText(getActivity(), "Add diet successfully ", Toast.LENGTH_SHORT).show();
+                    alarm.setAlarm(value,alarmcode);
+                    Toast.makeText(getActivity(), "Add diet successfully "+alarmcode, Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
