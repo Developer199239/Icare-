@@ -24,7 +24,10 @@ import java.text.Format;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import bubtjobs.com.icare.DataBase.DataBaseManager;
+import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Others.CommonFunction;
+import bubtjobs.com.icare.Others.SessionManager;
 import bubtjobs.com.icare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,7 +44,9 @@ public class Add_diet extends Fragment {
 
 
     CommonFunction function;
-
+    DataBaseManager manager;
+    SessionManager sessionManager;
+    Diet_Input input;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_add_diet, container, false);
@@ -51,6 +56,8 @@ public class Add_diet extends Fragment {
     }
     public void inti(){
         function=new CommonFunction();
+        manager=new DataBaseManager(getActivity());
+        sessionManager=new SessionManager(getActivity());
     }
     //====================================== add diet======================
     @OnClick(R.id.add_diet_bt)
@@ -61,106 +68,38 @@ public class Add_diet extends Fragment {
             String alarmType= ((RadioButton) radioGroup.findViewById(selectedId)).getText().toString();
             String diet_type=diet_Com.getSelectedItem().toString();
             String menu=menu_Et.getText().toString();
-            String date=DD+MM+YY;
+            String date=YY+MM+DD;
             // hour
             // min
 
 
-            Long value=validAlarm(YY, MM, DD, TimeFormat, H, M);
+            Long value=function.validAlarm(YY, MM, DD, TimeFormat, H, M);
             if(value==-1)
             {
                 Toast.makeText(getActivity(), "Invalid date and time selection", Toast.LENGTH_SHORT).show();
             }
             else{
-                //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+                String userId=sessionManager.getCurrentPersonId();
+                String hour=String.valueOf(H);
+                String minute=String.valueOf(M);
+                Long alarmcode=function.alarmCodeGenerate();
+                input=new Diet_Input(userId,diet_type,menu,date,hour,minute,TimeFormat,alarmType,""+alarmcode,"1");
+                Boolean insert=manager.addDiet(input);
+                if(insert) {
+                    Toast.makeText(getActivity(), "Add diet successfully ", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getActivity(), "Add deit Fail ", Toast.LENGTH_SHORT).show();
+                }
             }
 
-           // Toast.makeText(getActivity(), diet_type+" "+menu+" "+date+" "+H+":"+M+" "+TimeFormat+" "+alarmType, Toast.LENGTH_LONG).show();
         }
         else
         {
             Toast.makeText(getActivity(), "Please Insert All Field", Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    private Long validAlarm(String YY,String MM,String DD,String formate,int requestHour,int requstMinute) {
-       int year=Integer.parseInt(String.valueOf(YY));
-       int month=Integer.parseInt(String.valueOf(MM));
-       int day=Integer.parseInt(String.valueOf(DD));
-
-        String requestDateString=YY+MM+DD;
-        int requestDateInt=Integer.parseInt(requestDateString);
-
-
-
-        // current day calculation
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        String monthTemp=String.valueOf(cal.get(Calendar.MONTH) + 1);
-        String dayTemp=String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
-        int currentHour=cal.get(Calendar.HOUR);
-        int currentMinute=cal.get(Calendar.MINUTE);
-
-        if(monthTemp.length()==1)
-            monthTemp="0"+monthTemp;
-        if(dayTemp.length()==1)
-            dayTemp="0"+dayTemp;
-
-        int currentYear=cal.get(Calendar.YEAR);
-        int currentMonth=Integer.parseInt(monthTemp);
-        int currentDay=Integer.parseInt(dayTemp);
-
-
-        String currentdateString=currentYear+""+monthTemp+dayTemp;
-        int currentdateInt=Integer.parseInt(currentdateString);
-
-        boolean isCorrect=false;
-
-        if(requestDateInt>=currentdateInt)
-        {
-            //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
-            if(requestDateInt==currentdateInt)
-            {
-              if(requestHour==currentHour && requstMinute>currentMinute)
-              {
-                 isCorrect=true;
-              }
-                else if(requestHour>currentHour)
-              {
-                  isCorrect=true;
-              }
-                else{
-                  isCorrect=false;
-              }
-
-            }
-            else{
-                isCorrect=true;
-            }
-        }
-        else{
-            isCorrect=false;
-        }
-
-        // calculation part
-        if(isCorrect==false)
-        {
-            return Long.parseLong("-1");
-        }
-        else
-        {
-
-            int yearInterval=year-currentYear;
-            int monthInterval=Math.abs(month-currentMonth);
-            int dayInterval=Math.abs(day-currentDay);
-
-            int hourInterval=Math.abs(requestHour-currentHour);
-            int minuteInterval=Math.abs(requstMinute-currentMinute);
-
-            Toast.makeText(getActivity(), yearInterval+" m="+monthInterval+" d "+dayInterval+" h "+hourInterval+" m "+minuteInterval, Toast.LENGTH_SHORT).show();
-
-            return Long.parseLong("1");
-        }
     }
 
     //===================================== cancel=================

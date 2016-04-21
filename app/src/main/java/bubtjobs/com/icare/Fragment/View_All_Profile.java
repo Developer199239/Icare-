@@ -19,6 +19,7 @@ import bubtjobs.com.icare.Activity.PersonHome;
 import bubtjobs.com.icare.Adapter.ProfileViewAdapter;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Profile;
+import bubtjobs.com.icare.Others.SessionManager;
 import bubtjobs.com.icare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +31,7 @@ public class View_All_Profile extends Fragment {
     @Bind(R.id.profileListView) ListView profileListView;
     Profile profile;
     DataBaseManager manager;
+    SessionManager sessionManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_view__all__profile, container, false);
@@ -51,6 +53,10 @@ public class View_All_Profile extends Fragment {
 
                 String userId=profileArrayList.get(position).getUserId();
                 String username=profileArrayList.get(position).getUserName();
+
+                sessionManager=new SessionManager(getActivity());
+                sessionManager.setCurrentPersonId(userId);
+
                 Toast.makeText(getActivity(), userId+""+username, Toast.LENGTH_SHORT).show();
 
                 Intent intent=new Intent(getActivity(),PersonHome.class);

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
+import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Model.Profile;
 import bubtjobs.com.icare.Model.Profile_Add;
 
@@ -95,5 +96,40 @@ public class DataBaseManager {
         }
         this.close();
         return profileList;
+    }
+    // add diet
+    public boolean addDiet(Diet_Input diet_input){
+
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_USER_ID,diet_input.getUserId());
+        contentValues.put(DatabaseHelper.COL_DIET_TYPE,diet_input.getDietType());
+        contentValues.put(DatabaseHelper.COL_MENU,diet_input.getMenu());
+        contentValues.put(DatabaseHelper.COL_DATE,diet_input.getDate());
+        contentValues.put(DatabaseHelper.COL_HOUR,diet_input.getHour());
+        contentValues.put(DatabaseHelper.COL_MINUTE,diet_input.getMinute());
+        contentValues.put(DatabaseHelper.COL_FORMATE,diet_input.getFormate());
+        contentValues.put(DatabaseHelper.COL_ALARM_TYPE,diet_input.getAlarmType());
+        contentValues.put(DatabaseHelper.COL_ALARM_CODE,diet_input.getAlarmCode());
+        contentValues.put(DatabaseHelper.COL_STATUS, diet_input.getStatus());
+
+//        contentValues.put(DatabaseHelper.COL_USER_ID,"0");
+//        contentValues.put(DatabaseHelper.COL_DIET_TYPE,"type");
+//        contentValues.put(DatabaseHelper.COL_MENU,"menu");
+//        contentValues.put(DatabaseHelper.COL_DATE,"date");
+//        contentValues.put(DatabaseHelper.COL_HOUR,"hour");
+//        contentValues.put(DatabaseHelper.COL_MINUTE,"min");
+//        contentValues.put(DatabaseHelper.COL_FORMATE,"for");
+//        contentValues.put(DatabaseHelper.COL_ALARM_TYPE,"alarmtype");
+//        contentValues.put(DatabaseHelper.COL_ALARM_CODE,"alarm code");
+//        contentValues.put(DatabaseHelper.COL_STATUS,"1");
+
+        long inserted = database.insert(DatabaseHelper.TABLE_DIET, null, contentValues);
+        this.close();
+
+        if(inserted>0)
+        return true;
+        else
+            return false;
     }
 }

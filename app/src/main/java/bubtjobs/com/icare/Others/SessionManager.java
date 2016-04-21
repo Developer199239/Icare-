@@ -22,6 +22,10 @@ public class SessionManager {
 	private static final String USER_NAME="user_Name";
 	private static final String USER_Passwrd="user_password";
 
+	// current person id
+	private static final String CURRENT_PERSON_ID="current_Person_id";
+
+
 	//constructor
 	public SessionManager(Context _context) {
 		this._context = _context;
@@ -31,7 +35,6 @@ public class SessionManager {
 
 
 	// install status
-
 	public void setInstallStatus(){
 		editor.putString(IS_FIRST_INSTALL,"False");
 		editor.commit();
@@ -44,7 +47,6 @@ public class SessionManager {
 	}
 
 	//set and retrive user and password
-
 	public void setUserName(String userName,String password){
 		editor.putString(USER_NAME,userName);
 		editor.putString(USER_Passwrd,password);
@@ -71,6 +73,16 @@ public class SessionManager {
 		editor.putString(USER_Passwrd,pass);
 		editor.commit();
 	}
+
+	// set current person user id
+	public void setCurrentPersonId(String id){
+		editor.putString(CURRENT_PERSON_ID,id);
+		editor.commit();
+	}
+	public String getCurrentPersonId(){
+		return perf.getString(CURRENT_PERSON_ID,"1");
+	}
+
 
 	public void createLoginSession(String id){
 
