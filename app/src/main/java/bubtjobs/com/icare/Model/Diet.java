@@ -10,6 +10,8 @@ public class Diet {
     private String dietTime;
     private String dietDate;
 
+    public Diet(){}
+
     public Diet(String dietId, String dietType, String menu, String dietTime, String dietDate) {
         this.dietId = dietId;
         this.dietType = dietType;

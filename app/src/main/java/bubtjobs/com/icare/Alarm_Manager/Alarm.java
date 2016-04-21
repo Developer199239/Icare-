@@ -20,13 +20,18 @@ public class Alarm {
         alarmManager= (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
     }
 
-    public void setAlarm(Long millis,int alarmCode){
+    public void setAlarm(Long millis,int alarmCode,String table,String tableId,String currentUserId){
        // Long millis=Long.parseLong("5000");
-        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+millis,createClockTickIntent(context,alarmCode));
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+millis,createClockTickIntent(context,alarmCode,table,tableId,currentUserId));
     }
 
-    private PendingIntent createClockTickIntent(Context context,int alarmCode) {
+    private PendingIntent createClockTickIntent(Context context,int alarmCode,String table,String tableId,String userId) {
         Intent intent = new Intent("CUSTOM_ACTION");
+
+        intent.putExtra("table",table);
+        intent.putExtra("tableId",tableId);
+        intent.putExtra("userId",userId);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pendingIntent;
     }

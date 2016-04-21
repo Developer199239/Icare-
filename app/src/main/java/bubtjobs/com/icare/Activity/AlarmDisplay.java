@@ -11,12 +11,15 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import bubtjobs.com.icare.DataBase.DataBaseManager;
+import bubtjobs.com.icare.Model.Diet;
 import bubtjobs.com.icare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,19 +36,44 @@ public class AlarmDisplay extends AppCompatActivity {
 
     Uri uriAlarm;
     Ringtone ringTone;
+    DataBaseManager manager;
+    Diet diet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_display);
         ButterKnife.bind(this);
+        manager=new DataBaseManager(this);
+        diet=new Diet();
+        Intent intent=getIntent();
+
+        String table=intent.getStringExtra("table");
+        String tableId=intent.getStringExtra("tableId");
+        String userId=intent.getStringExtra("userId");
+
+        Log.i("tableId", table + tableId + userId);
+
+        String name=manager.getPersonName(userId);
+
+        String alarm_Type="";
+        String alarm_Date="";
+        String alarm_time="";
+        String alarm_details="";
+        diet=manager.getSingleDiet(tableId);
+        if(diet!=null)
+        {
+           alarm_Type=diet.getDietType();
+            alarm_Date=diet.getDietDate();
+            alarm_time=diet.getDietTime();
+            alarm_details=diet.getMenu();
+        }
 
 
-
-        alarmType.setText("Alarm");
-        personName.setText("Name: Jaliur rahman");
-        date.setText("Date: 21/04/2016");
-        time.setText("Time: 02:10 PM");
-        details.setText("Ditails: Breakfast");
+        alarmType.setText(alarm_Type);
+        personName.setText("Name: "+name);
+        date.setText("Date: "+alarm_Date);
+        time.setText("Time: "+alarm_time);
+        details.setText("Ditails: "+alarm_details);
 
         uriAlarm=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if(ringTone!=null){

@@ -129,11 +129,11 @@ public class DataBaseManager {
         else
             return false;
     }
-    public ArrayList<Diet> getTodayDiet(){
+    public ArrayList<Diet> getDiet(String condition){
         dietList=new ArrayList<>();
         this.open();
         try {
-            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " == " + function.currentDate()+" and "+DatabaseHelper.COL_USER_ID+" == "+sessionManager.getCurrentPersonId();
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_USER_ID+" == "+sessionManager.getCurrentPersonId();
             Log.i("query",query);
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
@@ -171,4 +171,74 @@ public class DataBaseManager {
         this.close();
         return dietList;
     }
+
+    public int lastIndex(String table)
+    {
+        int cnt=0;
+        this.open();
+        Cursor cursor = database.query(table, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        if(cursor!=null && cursor.getCount()>0)
+            cnt=cursor.getCount();
+
+        this.close();
+        return cnt;
+    }
+    public String getPersonName(String id){
+        String name="";
+        this.open();
+        String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " where " + DatabaseHelper.COL_ID + " = "+id;
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        if(cursor!=null && cursor.getCount()>0)
+        {
+            name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
+        }
+
+        this.close();
+        return name;
+    }
+
+
+    public Diet getSingleDiet(String tableId){
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_ID + " =  "+tableId;
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String dietType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DIET_TYPE));
+                    String menu= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MENU));
+                    String date= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String hour= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HOUR));
+                    String minute= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MINUTE));
+                    String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
+                    String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
+                    String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+
+                    String year=date.substring(0, 4);
+                    String month=date.substring(4, 6);
+                    String day=date.substring(6,8);
+
+                    diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    cursor.moveToNext();
+                }
+            }
+            else
+               diet=new Diet();
+        }
+        catch (Exception e)
+        {
+            diet=new Diet();
+        }
+        this.close();
+        return diet;
+    }
+
 }

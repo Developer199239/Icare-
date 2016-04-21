@@ -26,6 +26,7 @@ import java.util.TimeZone;
 
 import bubtjobs.com.icare.Alarm_Manager.Alarm;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
+import bubtjobs.com.icare.DataBase.DatabaseHelper;
 import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Others.CommonFunction;
 import bubtjobs.com.icare.Others.SessionManager;
@@ -90,7 +91,15 @@ public class Add_diet extends Fragment {
                 input=new Diet_Input(userId,diet_type,menu,date,hour,minute,TimeFormat,alarmType,""+alarmcode,"1");
                 Boolean insert=manager.addDiet(input);
                 if(insert) {
-                    alarm.setAlarm(value,alarmcode);
+                    String currentPersonId=sessionManager.getCurrentPersonId();
+                    String table="diet";
+                    String dietId=""+manager.lastIndex(table);
+                    alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
+                    // user id
+                    // table
+                    // table column
+
+
                     Toast.makeText(getActivity(), "Add diet successfully "+alarmcode, Toast.LENGTH_SHORT).show();
                 }
                 else

@@ -34,15 +34,10 @@ public class Today_diet_chart extends Fragment {
         ButterKnife.bind(this, view);
 
         manager=new DataBaseManager(getActivity());
-
-//        String temp=manager.getTodayDiet();
-//        Toast.makeText(getActivity(), temp, Toast.LENGTH_LONG).show();
-
-
         toDayDietList=new ArrayList<>();
        // Toast.makeText(getActivity(), manager.getTodayDiet(), Toast.LENGTH_LONG).show();
 
-        toDayDietList=manager.getTodayDiet();
+        toDayDietList=manager.getDiet("==");
 
         if(toDayDietList!=null && toDayDietList.size()>0)
         {
