@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.Format;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -64,13 +65,102 @@ public class Add_diet extends Fragment {
             // hour
             // min
 
-            Toast.makeText(getActivity(), diet_type+" "+menu+" "+date+" "+H+":"+M+" "+TimeFormat+" "+alarmType, Toast.LENGTH_LONG).show();
+
+            Long value=validAlarm(YY, MM, DD, TimeFormat, H, M);
+            if(value==-1)
+            {
+                Toast.makeText(getActivity(), "Invalid date and time selection", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+            }
+
+           // Toast.makeText(getActivity(), diet_type+" "+menu+" "+date+" "+H+":"+M+" "+TimeFormat+" "+alarmType, Toast.LENGTH_LONG).show();
         }
         else
         {
             Toast.makeText(getActivity(), "Please Insert All Field", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private Long validAlarm(String YY,String MM,String DD,String formate,int requestHour,int requstMinute) {
+       int year=Integer.parseInt(String.valueOf(YY));
+       int month=Integer.parseInt(String.valueOf(MM));
+       int day=Integer.parseInt(String.valueOf(DD));
+
+        String requestDateString=YY+MM+DD;
+        int requestDateInt=Integer.parseInt(requestDateString);
+
+
+
+        // current day calculation
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        String monthTemp=String.valueOf(cal.get(Calendar.MONTH) + 1);
+        String dayTemp=String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
+        int currentHour=cal.get(Calendar.HOUR);
+        int currentMinute=cal.get(Calendar.MINUTE);
+
+        if(monthTemp.length()==1)
+            monthTemp="0"+monthTemp;
+        if(dayTemp.length()==1)
+            dayTemp="0"+dayTemp;
+
+        int currentYear=cal.get(Calendar.YEAR);
+        int currentMonth=Integer.parseInt(monthTemp);
+        int currentDay=Integer.parseInt(dayTemp);
+
+
+        String currentdateString=currentYear+""+monthTemp+dayTemp;
+        int currentdateInt=Integer.parseInt(currentdateString);
+
+        boolean isCorrect=false;
+
+        if(requestDateInt>=currentdateInt)
+        {
+            //Toast.makeText(getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+            if(requestDateInt==currentdateInt)
+            {
+              if(requestHour==currentHour && requstMinute>currentMinute)
+              {
+                 isCorrect=true;
+              }
+                else if(requestHour>currentHour)
+              {
+                  isCorrect=true;
+              }
+                else{
+                  isCorrect=false;
+              }
+
+            }
+            else{
+                isCorrect=true;
+            }
+        }
+        else{
+            isCorrect=false;
+        }
+
+        // calculation part
+        if(isCorrect==false)
+        {
+            return Long.parseLong("-1");
+        }
+        else
+        {
+
+            int yearInterval=year-currentYear;
+            int monthInterval=Math.abs(month-currentMonth);
+            int dayInterval=Math.abs(day-currentDay);
+
+            int hourInterval=Math.abs(requestHour-currentHour);
+            int minuteInterval=Math.abs(requstMinute-currentMinute);
+
+            Toast.makeText(getActivity(), yearInterval+" m="+monthInterval+" d "+dayInterval+" h "+hourInterval+" m "+minuteInterval, Toast.LENGTH_SHORT).show();
+
+            return Long.parseLong("1");
+        }
     }
 
     //===================================== cancel=================
@@ -163,5 +253,6 @@ public class Add_diet extends Fragment {
 
         }
     };
+
 
 }
