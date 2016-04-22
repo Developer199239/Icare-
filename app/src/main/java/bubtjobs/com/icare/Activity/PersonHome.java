@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import bubtjobs.com.icare.Fragment.Add_Profile;
+import bubtjobs.com.icare.Fragment.Add_Vaccination;
 import bubtjobs.com.icare.Fragment.Add_diet;
 import bubtjobs.com.icare.Fragment.ChangePassword;
 import bubtjobs.com.icare.Fragment.GeneralInfo;
@@ -112,11 +113,21 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
             toolbar.setTitle("Previous Diet Chart");
             currentFragment=new Previous_diet_chart();
         }
+//
+        else if(id==R.id.nav_add_vaccination)
+        {
+            toolbar.setTitle("Add Vaccination");
+            currentFragment=new Add_Vaccination();
+        }
         else if(id==R.id.nav_add_vaccination)
         {
 
         }
-        else if(id==R.id.nav_all_vaccination)
+        else if(id==R.id.nav_upcomming_vaccination)
+        {
+
+        }
+        else if(id==R.id.nav_pre_vaccination)
         {
 
         }

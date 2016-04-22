@@ -34,13 +34,24 @@
             </group>
         </menu>
     </item>
+<!---->
 
-    <item
-        android:id="@+id/nav_add_vaccination"
-        android:title="@string/add_vaccination_menu" />
-    <item
-        android:id="@+id/nav_all_vaccination"
-        android:title="@string/all_vaccination_menu" />
+    <item android:title="Vaccination">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_add_vaccination"
+                    android:title="@string/add_vaccination_menu" />
+                <item
+                    android:id="@+id/nav_upcomming_vaccination"
+                    android:title="Upcoming Vaccination" />
+                <item
+                    android:id="@+id/nav_pre_vaccination"
+                    android:title="Previous Vaccination" />
+            </group>
+        </menu>
+    </item>
+
     <item
         android:id="@+id/nav_personal_doctor"
         android:title="@string/personal_doctor_menu" />

@@ -12,6 +12,7 @@ import bubtjobs.com.icare.Model.Diet;
 import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Model.Profile;
 import bubtjobs.com.icare.Model.Profile_Add;
+import bubtjobs.com.icare.Model.Vaccination;
 import bubtjobs.com.icare.Others.CommonFunction;
 import bubtjobs.com.icare.Others.SessionManager;
 
@@ -239,6 +240,31 @@ public class DataBaseManager {
         }
         this.close();
         return diet;
+    }
+
+    //============================================== vaccination part=============================
+    // add diet
+    public boolean addVaccination(Vaccination vaccination){
+
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_USER_ID,vaccination.getUserId());
+        contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(vaccination.getDate()));
+        contentValues.put(DatabaseHelper.COL_HOUR,vaccination.getHour());
+        contentValues.put(DatabaseHelper.COL_MINUTE,vaccination.getMinute());
+        contentValues.put(DatabaseHelper.COL_FORMATE,vaccination.getFormate());
+        contentValues.put(DatabaseHelper.COL_VACCINATION_NAME,vaccination.getVa_name());
+        contentValues.put(DatabaseHelper.COL_DETAILS,vaccination.getDetails());
+        contentValues.put(DatabaseHelper.COL_ALARM_TYPE,vaccination.getAlarmType());
+        contentValues.put(DatabaseHelper.COL_ALARM_CODE,vaccination.getAlarmCode());
+        contentValues.put(DatabaseHelper.COL_STATUS,vaccination.getStatus());
+        long inserted = database.insert(DatabaseHelper.TABLE_VACCINATION, null, contentValues);
+        this.close();
+
+        if(inserted>0)
+            return true;
+        else
+            return false;
     }
 
 }

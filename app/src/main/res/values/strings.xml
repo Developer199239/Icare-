@@ -9,6 +9,7 @@
     <string name="add_diet_Bt">Add Diet</string>
     <string name="date_Bt">Pick Date</string>
     <string name="time_Bt">Pick Time</string>
+    <string name="add_vaccination_Bt">Add Vaccination</string>
 
 
     <!--EditText Hints-->
@@ -42,7 +43,9 @@
     <string name="time_tx">Time</string>
     <string name="daily_alarm_tx">Dialy Alarm</string>
     <string name="reminder_tx">Reminder</string>
-
+    <!-- add vaccination -->
+    <string name="vaccination_name_tx">Select Vaccination</string>
+    <string name="vaccination_details_tx">Vaccination Details</string>
 
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open</string>
@@ -100,9 +103,23 @@
         <item>lunch</item>
         <item>dinar</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- vaccination list -->
+    <string-array name="vaccination_combo">
+        <item>Chickenpox</item>
+        <item>Diphtheria</item>
+        <item>Hib</item>
+        <item>Hepatitis A</item>
+        <item>Hepatitis B</item>
+        <item>Influenza</item>
+        <item>Measles</item>
+        <item>Mumps</item>
+        <item>Pertussis</item>
+        <item>Polio</item>
+        <item>Pneumococcal</item>
+        <item>Rotavirus</item>
+        <item>Rubella</item>
+        <item>Tetanus</item>
+    </string-array>
 
 
 </resources>
