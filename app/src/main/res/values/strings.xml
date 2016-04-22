@@ -56,6 +56,7 @@
     <string name="add_profile_menu">Add Profile</string>
     <string name="view_profiles_menu">View Profiles</string>
     <string name="health_center_menu">Health Center</string>
+    <string name="emergency_call_menu">Emergency Call</string>
     <string name="change_password_menu">Change Password</string>
     <string name="logout_menu">Logout</string>
 

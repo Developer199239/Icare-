@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import bubtjobs.com.icare.Fragment.Add_Profile;
 import bubtjobs.com.icare.Fragment.ChangePassword;
+import bubtjobs.com.icare.Fragment.Emergency_Call;
 import bubtjobs.com.icare.Fragment.View_All_Profile;
 import bubtjobs.com.icare.R;
 
@@ -114,6 +115,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         else if(id==R.id.nav_health_center)
         {
 
+        }
+        else if(id==R.id.nav_emergency_call)
+        {
+            toolbar.setTitle("Set Emergency Call");
+            currentFragment=new Emergency_Call();
         }
         else if(id==R.id.nav_change_password)
         {

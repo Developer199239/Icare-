@@ -2,7 +2,9 @@ package bubtjobs.com.icare.Fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import bubtjobs.com.icare.Activity.Home;
+import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Others.CommonFunction;
 import bubtjobs.com.icare.Others.SessionManager;
 import bubtjobs.com.icare.R;
@@ -24,6 +28,7 @@ public class Login extends Fragment {
     @Bind(R.id.passwordEt) EditText passwordEt;
     SessionManager sessionManager;
     CommonFunction commonFunction;
+    DataBaseManager manager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_sign_up, container, false);
@@ -36,7 +41,7 @@ public class Login extends Fragment {
     private void init(View view) {
         sessionManager=new SessionManager(view.getContext());
         commonFunction=new CommonFunction();
-
+        manager=new DataBaseManager(getActivity());
        //Toast.makeText(getActivity(), ""+sessionManager.getInstallStatus(), Toast.LENGTH_SHORT).show();
         if(sessionManager.getInstallStatus()==true)
             login_bt.setText("Sign Up");
@@ -49,7 +54,7 @@ public class Login extends Fragment {
         {
             if(login_bt.getText().toString().equals("Sign Up"))
         {
-            sessionManager.setUserName(userNameEt.getText().toString(),passwordEt.getText().toString());
+            sessionManager.setUserName(userNameEt.getText().toString(), passwordEt.getText().toString());
             sessionManager.setInstallStatus();
             Toast.makeText(getActivity(), "Registation complete", Toast.LENGTH_SHORT).show();
             Add_Profile add_profile=new Add_Profile();
@@ -61,11 +66,19 @@ public class Login extends Fragment {
         else{
                 if(sessionManager.getUserName(userNameEt.getText().toString(),passwordEt.getText().toString()))
                 {
-                    Add_Profile add_profile=new Add_Profile();
-                    FragmentManager manager= getFragmentManager();
-                    FragmentTransaction transaction=manager.beginTransaction();
-                    transaction.replace(R.id.myFragment, add_profile);
-                    transaction.commit();
+                    if(manager.getTotalUser()==true)
+                    {
+                        Intent intent=new Intent(getActivity(),Home.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                    else {
+                        Add_Profile add_profile = new Add_Profile();
+                        FragmentManager manager = getFragmentManager();
+                        FragmentTransaction transaction = manager.beginTransaction();
+                        transaction.replace(R.id.myFragment, add_profile);
+                        transaction.commit();
+                    }
                 }
                 else{
                     Toast.makeText(getActivity(), "Unauthorize person", Toast.LENGTH_SHORT).show();

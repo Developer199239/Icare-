@@ -25,6 +25,8 @@ public class SessionManager {
 	// current person id
 	private static final String CURRENT_PERSON_ID="current_Person_id";
 
+	// set emergency number
+	private static final String EMERGENCY_NUMBER="emergency_number";
 
 	//constructor
 	public SessionManager(Context _context) {
@@ -92,56 +94,23 @@ public class SessionManager {
 		editor.commit();
 		
 	}
-	
 	//get store session date
 	
 	public String getUserId(){
 		return perf.getString(KEY_ID,null);
 	}
-	
-	
-	//check login
-	public void CheckLogin(){
-		 // Check login status
-        if(!this.isLoggedIn()){
-//            // user is not logged in redirect him to Login Activity
-//            Intent i = new Intent(_context, Fragment_login.class);
-//            // Closing all the Activities
-//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//            // Add new Flag to start new Activity
-//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//            // Staring Login Activity
-//            _context.startActivity(i);
-        }
+
+	// emergency Number
+	public void setEmergencyNumber(String number){
+		editor.putString(EMERGENCY_NUMBER,number);
+		editor.commit();
 	}
-	/**
-     * Quick check for login
-     * **/
-    // Get Login State
-    public boolean isLoggedIn(){
-        return perf.getBoolean(IS_LOGIN, false);
-    }
-    /**
-     * Clear session details
-     * */
-    public void logoutUser(){
-        // Clearing all data from Shared Preferences
-//        editor.clear();
-//        editor.commit();
-//
-//        // After logout redirect user to Loing Activity
-//        Intent i = new Intent(_context, Fragment_login.class);
-//        // Closing all the Activities
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        // Add new Flag to start new Activity
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        // Staring Login Activity
-//        _context.startActivity(i);
-    }
+	public String getEmergencyNumber(){
+		return perf.getString(EMERGENCY_NUMBER,"#");
+	}
+	
+
+
     
 	
 

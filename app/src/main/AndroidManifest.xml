@@ -3,7 +3,7 @@
     package="bubtjobs.com.icare">
 
     <uses-permission android:name="android.permission.internet" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -37,10 +37,13 @@
             android:name=".Broadcast.Receiver"
             android:enabled="true"
             android:exported="false">
-                    <intent-filter>
-                        <action android:name="CUSTOM_ACTION" />
-                    </intent-filter>
+            <intent-filter>
+                <action android:name="CUSTOM_ACTION" />
+            </intent-filter>
         </receiver>
+
+        <service
+            android:name=".Service.Calling_service"/>
     </application>
 
 </manifest>
