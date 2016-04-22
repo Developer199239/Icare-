@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/name_ht"
                     style="@style/editText"
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ."
                     />
             </LinearLayout>
 

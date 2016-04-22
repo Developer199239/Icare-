@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import bubtjobs.com.icare.Model.Diet;
 import bubtjobs.com.icare.Model.Diet_Input;
+import bubtjobs.com.icare.Model.Doctor;
 import bubtjobs.com.icare.Model.Profile;
 import bubtjobs.com.icare.Model.Profile_Add;
 import bubtjobs.com.icare.Model.Vaccination;
@@ -29,6 +30,8 @@ public class DataBaseManager {
     Diet diet;
     Vaccination vaccination;
     ArrayList<Vaccination>vaccinationList;
+    Doctor doctor;
+    ArrayList<Doctor> doctorList;
 
     public DataBaseManager(Context context){
         helper=new DatabaseHelper(context);
@@ -360,5 +363,61 @@ public class DataBaseManager {
         this.close();
         return vaccination;
     }
+
+    // add doctor
+    public boolean add_Doctor(Doctor doctor){
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_USER_ID,doctor.getUserId());
+        contentValues.put(DatabaseHelper.COL_NAME, doctor.getName());
+        contentValues.put(DatabaseHelper.COL_DETAILS, doctor.getDetails());
+        contentValues.put(DatabaseHelper.COL_PHONE, doctor.getPhone());
+        contentValues.put(DatabaseHelper.COL_EMAIL, doctor.getEmail());
+        contentValues.put(DatabaseHelper.COL_STATUS, doctor.getStatus());
+        long inserted = database.insert(DatabaseHelper.TABLE_DOCTORS, null, contentValues);
+        this.close();
+
+        if(inserted>0)
+            return true;
+        else
+            return false;
+    }
+
+    public ArrayList<Doctor> getAllDoctor(){
+        doctorList=new ArrayList<>();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DOCTORS + " where " +DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
+                    String details= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
+                    String phone= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_PHONE));
+                    String email= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_EMAIL));
+                    String status= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_STATUS));
+
+                    doctor=new Doctor(id,userId,name,details,phone,email,status);
+                    doctorList.add(doctor);
+                    cursor.moveToNext();
+                }
+            }
+//            else
+//                vaccination=new Vaccination();
+        }
+        catch (Exception e)
+        {
+            //vaccination=new Vaccination();
+        }
+        this.close();
+        return doctorList;
+    }
+
 
 }

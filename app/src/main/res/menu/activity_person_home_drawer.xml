@@ -51,10 +51,20 @@
             </group>
         </menu>
     </item>
-
-    <item
-        android:id="@+id/nav_personal_doctor"
-        android:title="@string/personal_doctor_menu" />
+<!--doctor-->
+    <item android:title="Personal Doctor">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_add_doctor"
+                    android:title="Add Doctor" />
+                <item
+                    android:id="@+id/nav_doctor_list"
+                    android:title="Doctor List" />
+            </group>
+        </menu>
+    </item>
+    <!-- medical-->
     <item
         android:id="@+id/nav_medical_history"
         android:title="@string/medical_history_menu" />
