@@ -27,12 +27,14 @@ public class DataBaseManager {
     SessionManager sessionManager;
     ArrayList<Diet>dietList;
     Diet diet;
+    Vaccination vaccination;
 
     public DataBaseManager(Context context){
         helper=new DatabaseHelper(context);
         profile=new Profile();
         function=new CommonFunction();
         sessionManager=new SessionManager(context);
+        vaccination=new Vaccination();
     }
 
     private void open() {
@@ -134,7 +136,7 @@ public class DataBaseManager {
         dietList=new ArrayList<>();
         this.open();
         try {
-            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_USER_ID+" == "+sessionManager.getCurrentPersonId();
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
             Log.i("query",query);
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
@@ -265,6 +267,48 @@ public class DataBaseManager {
             return true;
         else
             return false;
+    }
+
+    public Vaccination getSingleVaccination(String tableId){
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_VACCINATION + " where " + DatabaseHelper.COL_ID + " =  "+tableId;
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String va_name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_VACCINATION_NAME));
+                    String date= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String hour= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HOUR));
+                    String minute= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MINUTE));
+                    String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
+                    String details= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
+                    String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
+                    String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+
+                    String year=date.substring(0, 4);
+                    String month=date.substring(4, 6);
+                    String day=date.substring(6,8);
+
+                   // diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    vaccination=new Vaccination(id,alarmType,"Vacination, "+details,day+"/"+month+"/"+year,hour+":"+minute+" "+formate);
+                    cursor.moveToNext();
+                }
+            }
+            else
+                vaccination=new Vaccination();
+        }
+        catch (Exception e)
+        {
+            vaccination=new Vaccination();
+        }
+        this.close();
+        return vaccination;
     }
 
 }

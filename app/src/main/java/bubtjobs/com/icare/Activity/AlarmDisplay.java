@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Diet;
+import bubtjobs.com.icare.Model.Vaccination;
 import bubtjobs.com.icare.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,6 +39,7 @@ public class AlarmDisplay extends AppCompatActivity {
     Ringtone ringTone;
     DataBaseManager manager;
     Diet diet;
+    Vaccination vaccination;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class AlarmDisplay extends AppCompatActivity {
         ButterKnife.bind(this);
         manager=new DataBaseManager(this);
         diet=new Diet();
+        vaccination=new Vaccination();
         Intent intent=getIntent();
 
         String table=intent.getStringExtra("table");
@@ -59,15 +62,25 @@ public class AlarmDisplay extends AppCompatActivity {
         String alarm_Date="";
         String alarm_time="";
         String alarm_details="";
-        diet=manager.getSingleDiet(tableId);
-        if(diet!=null)
-        {
-           alarm_Type=diet.getDietType();
-            alarm_Date=diet.getDietDate();
-            alarm_time=diet.getDietTime();
-            alarm_details=diet.getMenu();
+        if(table.equals("diet")) {
+            diet = manager.getSingleDiet(tableId);
+            if (diet != null) {
+                alarm_Type = diet.getDietType();
+                alarm_Date = diet.getDietDate();
+                alarm_time = diet.getDietTime();
+                alarm_details = diet.getMenu();
+            }
         }
-
+        else if(table.equals("vaccination"))
+        {
+           vaccination=manager.getSingleVaccination(tableId);
+            if (vaccination != null) {
+                alarm_Type = vaccination.getAlarmType();
+                alarm_Date = vaccination.getDate();
+                alarm_time = vaccination.getTime();
+                alarm_details = vaccination.getDetails();
+            }
+        }
 
         alarmType.setText(alarm_Type);
         personName.setText("Name: "+name);

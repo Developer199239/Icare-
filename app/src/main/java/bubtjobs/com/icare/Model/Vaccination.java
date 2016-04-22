@@ -14,8 +14,22 @@ public class Vaccination {
     private String alarmType;
     private String alarmCode;
     private String status;
+    private String tableId;
+    private String time;
 
     public Vaccination(){}
+    // for display reminder activity
+
+    public Vaccination(String tableId,String alarmType,String details,String date,String time){
+       this.tableId=tableId;
+       this.alarmType=alarmType;
+       this.details=details;
+       this.date=date;
+       this.time=time;
+    }
+
+
+    // for input
     public Vaccination(String userId, String va_name, String date, String hour, String minute, String formate, String details,String alarmType, String alarmCode, String status) {
         this.userId = userId;
         this.va_name = va_name;
@@ -107,5 +121,21 @@ public class Vaccination {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

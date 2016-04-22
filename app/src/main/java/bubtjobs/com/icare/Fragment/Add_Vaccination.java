@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import bubtjobs.com.icare.Alarm_Manager.Alarm;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Vaccination;
 import bubtjobs.com.icare.Others.CommonFunction;
@@ -46,6 +47,7 @@ public class Add_Vaccination extends Fragment {
     SessionManager sessionManager;
     Vaccination va_input;
     DataBaseManager manager;
+    Alarm alarm;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_add__vaccination, container, false);
@@ -58,6 +60,7 @@ public class Add_Vaccination extends Fragment {
         function=new CommonFunction();
         sessionManager=new SessionManager(getActivity());
         manager=new DataBaseManager(getActivity());
+        alarm=new Alarm(getActivity());
     }
 
     @OnClick(R.id.add_va_bt)
@@ -83,6 +86,12 @@ public class Add_Vaccination extends Fragment {
                 boolean isinsert=manager.addVaccination(va_input);
                 if(isinsert)
                 {
+
+                    String currentPersonId=sessionManager.getCurrentPersonId();
+                    String table="vaccination";
+                    String dietId=""+manager.lastIndex(table);
+
+                    alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
                     Toast.makeText(getActivity(), "Data Insert Successfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
