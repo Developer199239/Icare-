@@ -18,8 +18,8 @@ public class Vaccination {
     private String time;
 
     public Vaccination(){}
-    // for display reminder activity
 
+    // for display reminder activity
     public Vaccination(String tableId,String alarmType,String details,String date,String time){
        this.tableId=tableId;
        this.alarmType=alarmType;
@@ -31,6 +31,22 @@ public class Vaccination {
 
     // for input
     public Vaccination(String userId, String va_name, String date, String hour, String minute, String formate, String details,String alarmType, String alarmCode, String status) {
+        this.userId = userId;
+        this.va_name = va_name;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+        this.formate = formate;
+        this.details=details;
+        this.alarmType = alarmType;
+        this.alarmCode = alarmCode;
+        this.status = status;
+    }
+
+
+    // for univarsel
+    public Vaccination(String tableId,String userId, String va_name, String date, String hour, String minute, String formate, String details,String alarmType, String alarmCode, String status) {
+        this.tableId=tableId;
         this.userId = userId;
         this.va_name = va_name;
         this.date = date;

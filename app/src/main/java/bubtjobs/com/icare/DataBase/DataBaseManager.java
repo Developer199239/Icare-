@@ -28,6 +28,7 @@ public class DataBaseManager {
     ArrayList<Diet>dietList;
     Diet diet;
     Vaccination vaccination;
+    ArrayList<Vaccination>vaccinationList;
 
     public DataBaseManager(Context context){
         helper=new DatabaseHelper(context);
@@ -268,6 +269,55 @@ public class DataBaseManager {
         else
             return false;
     }
+
+
+
+    public ArrayList<Vaccination> getVaccination(String condition){
+        vaccinationList=new ArrayList<>();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_VACCINATION + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String va_name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_VACCINATION_NAME));
+                    String date= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String hour= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HOUR));
+                    String minute= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MINUTE));
+                    String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
+                    String details= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
+                    String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
+                    String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+                    String status= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_STATUS));
+
+                    String year=date.substring(0, 4);
+                    String month=date.substring(4, 6);
+                    String day=date.substring(6,8);
+
+                   vaccination=new Vaccination(id,userId,va_name,""+date,hour,minute,formate,details,alarmType,alarmCode,status);
+                    vaccinationList.add(vaccination);
+                    cursor.moveToNext();
+                }
+            }
+//            else
+//                vaccination=new Vaccination();
+        }
+        catch (Exception e)
+        {
+            //vaccination=new Vaccination();
+        }
+        this.close();
+        return vaccinationList;
+    }
+
+
+
 
     public Vaccination getSingleVaccination(String tableId){
         this.open();

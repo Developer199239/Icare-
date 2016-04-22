@@ -19,9 +19,11 @@ import bubtjobs.com.icare.Fragment.Add_Vaccination;
 import bubtjobs.com.icare.Fragment.Add_diet;
 import bubtjobs.com.icare.Fragment.ChangePassword;
 import bubtjobs.com.icare.Fragment.GeneralInfo;
+import bubtjobs.com.icare.Fragment.Previous_Vaccination_chart;
 import bubtjobs.com.icare.Fragment.Previous_diet_chart;
 import bubtjobs.com.icare.Fragment.Today_diet_chart;
 import bubtjobs.com.icare.Fragment.UpComing_diet_chart;
+import bubtjobs.com.icare.Fragment.UpComming_Vaccination;
 import bubtjobs.com.icare.Fragment.View_All_Profile;
 import bubtjobs.com.icare.R;
 
@@ -119,17 +121,15 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
             toolbar.setTitle("Add Vaccination");
             currentFragment=new Add_Vaccination();
         }
-        else if(id==R.id.nav_add_vaccination)
-        {
-
-        }
         else if(id==R.id.nav_upcomming_vaccination)
         {
-
+            toolbar.setTitle("Upcomming Vaccination");
+            currentFragment=new UpComming_Vaccination();
         }
         else if(id==R.id.nav_pre_vaccination)
         {
-
+            toolbar.setTitle("Previous Vaccination");
+            currentFragment=new Previous_Vaccination_chart();
         }
         else if(id==R.id.nav_personal_doctor)
         {
