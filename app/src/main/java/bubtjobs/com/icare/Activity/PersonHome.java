@@ -15,10 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import bubtjobs.com.icare.Fragment.Add_Doctor;
-import bubtjobs.com.icare.Fragment.Add_Profile;
+import bubtjobs.com.icare.Fragment.Add_Medical_History;
 import bubtjobs.com.icare.Fragment.Add_Vaccination;
 import bubtjobs.com.icare.Fragment.Add_diet;
-import bubtjobs.com.icare.Fragment.ChangePassword;
 import bubtjobs.com.icare.Fragment.Doctor_list;
 import bubtjobs.com.icare.Fragment.GeneralInfo;
 import bubtjobs.com.icare.Fragment.Previous_Vaccination_chart;
@@ -143,9 +142,14 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
             toolbar.setTitle("Doctor List");
             currentFragment=new Doctor_list();
         }
-        else if(id==R.id.nav_medical_history)
+        else if(id==R.id.nav_add_Medical_History)
         {
-
+            toolbar.setTitle("Add Medical History");
+            currentFragment=new Add_Medical_History();
+        }
+        else if(id==R.id.nav_Show_Medical_History)
+        {
+            // show medical history
         }
         else if(id==R.id.nav_logout)
         {

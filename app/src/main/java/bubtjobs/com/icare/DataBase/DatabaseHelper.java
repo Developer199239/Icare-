@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // table medical hostory
     static  final String TABLE_MEDICAL_HISTORY="medical_history";
-    static  final String COL_IMG="appoinment";
+    static  final String COL_IMG="image";
     static  final String COL_DOCTOR_NAME="doctor_name";
     //crate table user
     String CREATE_TABLE_USER=" CREATE TABLE " + TABLE_USER + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_NAME +" TEXT," +COL_RELATION +" TEXT,"+COL_AGE +" TEXT,"+COL_HEIGHT +" TEXT,"+COL_WEIGHT +" TEXT,"+COL_MAJOR_DIS +" TEXT,"+COL_BLOOD +" TEXT,"+COL_STATUS +" TEXT )";
@@ -63,7 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     String CREATE_TABLE_DOCTORS=" CREATE TABLE " + TABLE_DOCTORS + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT," +COL_NAME +" TEXT," +COL_DETAILS +" TEXT,"+COL_PHONE +" TEXT,"+COL_EMAIL +" TEXT,"+COL_STATUS +" TEXT )";
 
     // create table medical history
-    String CREATE_TABLE_MEDICA_HISTORY=" CREATE TABLE " + TABLE_MEDICAL_HISTORY + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT,"+ COL_IMG+" TEXT," +COL_DOCTOR_NAME +" TEXT," +COL_DETAILS +" TEXT,"+COL_DATE +" TEXT,"+COL_STATUS +" TEXT )";
+    String CREATE_TABLE_MEDICA_HISTORY=" CREATE TABLE " + TABLE_MEDICAL_HISTORY + " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_USER_ID +" TEXT,"+ COL_IMG+" TEXT," +COL_DOCTOR_NAME +" TEXT," +COL_DETAILS +" TEXT,"+COL_DATE +" INTEGER,"+COL_STATUS +" TEXT )";
 
 //    String CREATE_TABLE_CONTACT=" CREATE TABLE " + TABLE_CONTACT +
 //            " ( " + COL_ID +" INTEGER PRIMARY KEY," + COL_NAME +" TEXT," +

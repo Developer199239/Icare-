@@ -64,10 +64,19 @@
             </group>
         </menu>
     </item>
-    <!-- medical-->
-    <item
-        android:id="@+id/nav_medical_history"
-        android:title="@string/medical_history_menu" />
+    <!-- medical history-->
+    <item android:title="Medical History">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_add_Medical_History"
+                    android:title="Add Medical History" />
+                <item
+                    android:id="@+id/nav_Show_Medical_History"
+                    android:title="Medical History List" />
+            </group>
+        </menu>
+    </item>
     <item
         android:id="@+id/nav_logout"
         android:title="@string/logout_menu" />

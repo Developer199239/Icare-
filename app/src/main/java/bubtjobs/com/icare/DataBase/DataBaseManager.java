@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import bubtjobs.com.icare.Model.Diet;
 import bubtjobs.com.icare.Model.Diet_Input;
 import bubtjobs.com.icare.Model.Doctor;
+import bubtjobs.com.icare.Model.Medical_History;
 import bubtjobs.com.icare.Model.Profile;
 import bubtjobs.com.icare.Model.Profile_Add;
 import bubtjobs.com.icare.Model.Vaccination;
@@ -417,6 +418,26 @@ public class DataBaseManager {
         }
         this.close();
         return doctorList;
+    }
+
+    // medical history
+    public boolean add_medical_history(Medical_History medical_history){
+
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_USER_ID,medical_history.getUserId());
+        contentValues.put(DatabaseHelper.COL_IMG,medical_history.getImage());
+        contentValues.put(DatabaseHelper.COL_DOCTOR_NAME,medical_history.getDoctorName());
+        contentValues.put(DatabaseHelper.COL_DETAILS,medical_history.getDetails());
+        contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(medical_history.getDate()));
+        contentValues.put(DatabaseHelper.COL_STATUS,"1");
+
+        long inserted = database.insert(DatabaseHelper.TABLE_MEDICAL_HISTORY, null, contentValues);
+        this.close();
+        if(inserted>0)
+            return true;
+        else
+            return false;
     }
 
 
