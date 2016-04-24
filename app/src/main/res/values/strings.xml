@@ -41,6 +41,7 @@
     <string name="menu_tx">Menu</string>
     <string name="date_tx">Date</string>
     <string name="time_tx">Time</string>
+    <string name="alarm_tx">Alarm</string>
     <string name="daily_alarm_tx">Dialy Alarm</string>
     <string name="reminder_tx">Reminder</string>
     <!-- add vaccination -->

@@ -25,6 +25,11 @@ public class Alarm {
         alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+millis,createClockTickIntent(context,alarmCode,table,tableId,currentUserId));
     }
 
+
+    public void setDailyAlarm(Long millis,int alarmCode,String table,String tableId,String currentUserId){
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millis, 86400000, createClockTickIntent(context, alarmCode, table, tableId, currentUserId));
+    }
+
     private PendingIntent createClockTickIntent(Context context,int alarmCode,String table,String tableId,String userId) {
         Intent intent = new Intent("CUSTOM_ACTION");
 
@@ -34,6 +39,14 @@ public class Alarm {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pendingIntent;
+    }
+
+
+    public void cancelAlarm(int alarmCode){
+
+        Intent intent = new Intent("CUSTOM_ACTION");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmCode, intent, 0);
+        alarmManager.cancel(pendingIntent);
     }
 
 }

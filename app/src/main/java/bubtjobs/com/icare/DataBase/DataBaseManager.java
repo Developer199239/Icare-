@@ -271,7 +271,7 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_DETAILS,vaccination.getDetails());
         contentValues.put(DatabaseHelper.COL_ALARM_TYPE,vaccination.getAlarmType());
         contentValues.put(DatabaseHelper.COL_ALARM_CODE,vaccination.getAlarmCode());
-        contentValues.put(DatabaseHelper.COL_STATUS,vaccination.getStatus());
+        contentValues.put(DatabaseHelper.COL_STATUS, vaccination.getStatus());
         long inserted = database.insert(DatabaseHelper.TABLE_VACCINATION, null, contentValues);
         this.close();
 
@@ -456,7 +456,7 @@ public class DataBaseManager {
 
             Log.i("query",query);
             Cursor cursor = database.rawQuery(query, null);
-            Log.i("query=",""+cursor.getCount());
+            Log.i("query=", "" + cursor.getCount());
             cursor.moveToFirst();
             if(cursor!=null && cursor.getCount()>0)
             {
@@ -532,6 +532,68 @@ public class DataBaseManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.COL_STATUS,"0");
         int updated = database.update(table, contentValues, DatabaseHelper.COL_ID + " = " + id, null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
+    }
+
+
+
+    public Diet_Input getSingleRowDiet(String tableId){
+        Diet_Input dietInput=new Diet_Input();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_ID + " =  "+tableId;
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String dietType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DIET_TYPE));
+                    String menu= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MENU));
+                    String date= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String hour= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HOUR));
+                    String minute= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MINUTE));
+                    String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
+                    String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
+                    String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+
+                    String year=date.substring(0, 4);
+                    String month=date.substring(4, 6);
+                    String day=date.substring(6,8);
+
+                    //diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    //cursor.moveToNext();
+                    dietInput=new Diet_Input(userId,dietType,menu,date,hour,minute,formate,alarmType,alarmCode,"1");
+                }
+            }
+            else
+                dietInput=new Diet_Input();
+        }
+        catch (Exception e)
+        {
+            dietInput=new Diet_Input();
+        }
+        this.close();
+        return dietInput;
+    }
+
+    public boolean dietUpdate(Diet_Input input){
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_DIET_TYPE,input.getDietType());
+        contentValues.put(DatabaseHelper.COL_MENU,input.getMenu());
+        contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(input.getDate()));
+        contentValues.put(DatabaseHelper.COL_HOUR,input.getHour());
+        contentValues.put(DatabaseHelper.COL_MINUTE,input.getMinute());
+        contentValues.put(DatabaseHelper.COL_FORMATE,input.getFormate());
+        contentValues.put(DatabaseHelper.COL_ALARM_TYPE,input.getAlarmType());
+        int updated = database.update(DatabaseHelper.TABLE_DIET, contentValues, DatabaseHelper.COL_ID + " = " + input.getId(), null);
         this.close();
         if (updated > 0) {
             return true;

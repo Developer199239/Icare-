@@ -124,14 +124,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/daily_alarm_tx"
+                    android:text="@string/alarm_tx"
                     />
                 <RadioButton
                     android:id="@+id/reminder_Rb"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/reminder_tx"
+                    android:text="@string/daily_alarm_tx"
                     />
             </RadioGroup>
         </LinearLayout>

@@ -94,11 +94,12 @@ public class Add_diet extends Fragment {
                     String currentPersonId=sessionManager.getCurrentPersonId();
                     String table="diet";
                     String dietId=""+manager.lastIndex(table);
-                    alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
-                    // user id
-                    // table
-                    // table column
-
+                    if(alarmType.equals("Alarm")){
+                        alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
+                    }
+                    else{
+                        alarm.setDailyAlarm(value,alarmcode,table,dietId,currentPersonId);
+                    }
 
                     Toast.makeText(getActivity(), "Add diet successfully "+alarmcode, Toast.LENGTH_SHORT).show();
                 }

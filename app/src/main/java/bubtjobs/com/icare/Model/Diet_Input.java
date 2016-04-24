@@ -14,6 +14,9 @@ public class Diet_Input {
     private String alarmType;
     private String alarmCode;
     private String status;
+    private String id;
+
+    public Diet_Input(){}
 
     public Diet_Input(String userId, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType, String alarmCode, String status) {
         this.userId = userId;
@@ -26,6 +29,25 @@ public class Diet_Input {
         this.alarmType = alarmType;
         this.alarmCode = alarmCode;
         this.status = status;
+    }
+
+    public Diet_Input(String id, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType) {
+        this.id = id;
+        this.dietType = dietType;
+        this.menu = menu;
+        this.date = date;
+        this.hour = hour;
+        this.minute = minute;
+        this.formate = formate;
+        this.alarmType = alarmType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
