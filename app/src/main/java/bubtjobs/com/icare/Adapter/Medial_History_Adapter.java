@@ -1,15 +1,24 @@
 package bubtjobs.com.icare.Adapter;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -47,13 +56,12 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if (convertView == null) {
 
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.custom_history_row, null);
-
             viewHolder = new ViewHolder();
             viewHolder.historyId_tv = (TextView) convertView.findViewById(R.id.historyId_tv);
             viewHolder.date_tv = (TextView) convertView.findViewById(R.id.date_tv);
@@ -81,7 +89,7 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
         if(!path.exists())
         {
             Log.i("query", "Image not found");
-            viewHolder.pre_ib.setImageResource(R.drawable.app_logo_2);
+            viewHolder.pre_ib.setImageResource(R.drawable.image_not_found);
         }
         else{
             try {
@@ -93,26 +101,27 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
             catch (Exception e)
             {
                 Log.d("query", "error image");
-                viewHolder.pre_ib.setImageResource(R.drawable.app_logo_2);
+                viewHolder.pre_ib.setImageResource(R.drawable.image_not_found);
             }
         }
 
 
-        //
-        viewHolder.pre_ib.buildDrawingCache();
-        final Bitmap bitmap=viewHolder.pre_ib.getDrawingCache();
+//        //
+//        viewHolder.pre_ib.buildDrawingCache();
+//        final Bitmap bitmap=viewHolder.pre_ib.getDrawingCache();
 
         viewHolder.pre_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 LayoutInflater li = LayoutInflater.from(context);
                 View promptsView = li.inflate(R.layout.custome_prescription_image_view, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setView(promptsView);
                 final ImageView imageView = (ImageView) promptsView
                         .findViewById(R.id.pre_view);
-//                final EditText userInput = (EditText) promptsView
-//                        .findViewById(R.id.editTextDialogUserInput);
+//                final Button userInput = (Button) promptsView
+//                        .findViewById(R.id.done);
 
 
 //                userInput.setHint("ok");
@@ -121,7 +130,7 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
                 if(!path.exists())
                 {
                     Log.i("query", "Image not found");
-                    imageView.setImageResource(R.drawable.app_logo_2);
+                    imageView.setImageResource(R.drawable.image_not_found);
                 }
                 else{
                     try {
@@ -133,9 +142,21 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
                     catch (Exception e)
                     {
                         Log.d("query", "error image");
-                        imageView.setImageResource(R.drawable.app_logo_2);
+                        imageView.setImageResource(R.drawable.image_not_found);
                     }
                 }
+
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setNegativeButton("Ok",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
 
                 // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
@@ -167,4 +188,5 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
 
         return convertView;
     }
+
 }
