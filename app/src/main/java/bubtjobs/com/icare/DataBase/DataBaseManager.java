@@ -80,7 +80,9 @@ public class DataBaseManager {
     public boolean getTotalUser(){
         Boolean temp=false;
         this.open();
-        Cursor cursor = database.query(DatabaseHelper.TABLE_USER, null, null, null, null, null, null);
+        String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " where " +DatabaseHelper.COL_STATUS+" = 1";
+        Log.i("query", query);
+        Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
         if(cursor!=null && cursor.getCount()>0)
@@ -98,7 +100,10 @@ public class DataBaseManager {
     public ArrayList<Profile> getAllUser(){
         this.open();
         ArrayList<Profile> profileList = new ArrayList<>();
-        Cursor cursor = database.query(DatabaseHelper.TABLE_USER, null, null, null, null, null, null);
+       // Cursor cursor = database.query(DatabaseHelper.TABLE_USER, null, null, null, null, null, null);
+        String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " where " +DatabaseHelper.COL_STATUS+" = 1";
+        Log.i("query", query);
+        Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
         if (cursor != null && cursor.getCount() > 0) {
@@ -482,6 +487,55 @@ public class DataBaseManager {
         this.close();
         //Log.i("query size:", "" + historyList.size());
         return historyList;
+    }
+
+    // user single row return
+    public Profile_Add getUserProfile(String id){
+        Profile_Add profile_add=new Profile_Add();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " where " + DatabaseHelper.COL_ID + " =  "+id;
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
+                    String relation= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_RELATION));
+                    String age= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_AGE));
+                    String height= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HEIGHT));
+                    String weight= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_WEIGHT));
+                    String major_dis= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MAJOR_DIS));
+                    String blood= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_BLOOD));
+                    profile_add=new Profile_Add(name,relation,age,height,weight,major_dis,blood);
+
+                }
+            }
+            else
+               profile_add=new Profile_Add();
+        }
+        catch (Exception e)
+        {
+            profile_add=new Profile_Add();
+        }
+        this.close();
+        return profile_add;
+
+
+    }
+    //user remove
+
+    public boolean removeRow(String table,String id){
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_STATUS,"0");
+        int updated = database.update(table, contentValues, DatabaseHelper.COL_ID + " = " + id, null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
     }
 
 }

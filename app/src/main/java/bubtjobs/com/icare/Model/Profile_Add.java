@@ -12,6 +12,8 @@ public class Profile_Add {
     private String major_dis;
     private String blood;
 
+    public Profile_Add(){}
+
     public Profile_Add(String name, String relation, String age, String height, String weight, String major_dis, String blood) {
         this.name = name;
         this.relation = relation;
