@@ -33,6 +33,8 @@ public class DataBaseManager {
     ArrayList<Vaccination>vaccinationList;
     Doctor doctor;
     ArrayList<Doctor> doctorList;
+    Medical_History medical_history;
+    ArrayList<Medical_History> historyList;
 
     public DataBaseManager(Context context){
         helper=new DatabaseHelper(context);
@@ -430,7 +432,7 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_DOCTOR_NAME,medical_history.getDoctorName());
         contentValues.put(DatabaseHelper.COL_DETAILS,medical_history.getDetails());
         contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(medical_history.getDate()));
-        contentValues.put(DatabaseHelper.COL_STATUS,"1");
+        contentValues.put(DatabaseHelper.COL_STATUS, "1");
 
         long inserted = database.insert(DatabaseHelper.TABLE_MEDICAL_HISTORY, null, contentValues);
         this.close();
@@ -440,5 +442,46 @@ public class DataBaseManager {
             return false;
     }
 
+
+    public ArrayList<Medical_History> getAllMedicalHistory(){
+        historyList=new ArrayList<>();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_MEDICAL_HISTORY + " where " +DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
+
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            Log.i("query=",""+cursor.getCount());
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    Log.i("query",""+i);
+                    String id=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String image=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IMG));
+                    String doctor_name=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DOCTOR_NAME));
+                    String details=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
+                    String date=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String status=  cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_STATUS));
+                    Log.i("query data",id+" = "+userId+" image= "+image+" doctor name= "+doctor_name+" deatils "+details+" date= "+date+" status "+status);
+
+                    medical_history=new Medical_History(id,userId,image,doctor_name,details,date,status);
+                    historyList.add(medical_history);
+                    cursor.moveToNext();
+                }
+            }
+//            else
+//                vaccination=new Vaccination();
+        }
+        catch (Exception e)
+        {
+            //vaccination=new Vaccination();
+        }
+        this.close();
+        //Log.i("query size:", "" + historyList.size());
+        return historyList;
+    }
 
 }

@@ -20,6 +20,7 @@ import bubtjobs.com.icare.Fragment.Add_Vaccination;
 import bubtjobs.com.icare.Fragment.Add_diet;
 import bubtjobs.com.icare.Fragment.Doctor_list;
 import bubtjobs.com.icare.Fragment.GeneralInfo;
+import bubtjobs.com.icare.Fragment.Medical_History_List;
 import bubtjobs.com.icare.Fragment.Previous_Vaccination_chart;
 import bubtjobs.com.icare.Fragment.Previous_diet_chart;
 import bubtjobs.com.icare.Fragment.Today_diet_chart;
@@ -149,7 +150,8 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
         }
         else if(id==R.id.nav_Show_Medical_History)
         {
-            // show medical history
+            toolbar.setTitle("Medical History");
+            currentFragment=new Medical_History_List();
         }
         else if(id==R.id.nav_logout)
         {
