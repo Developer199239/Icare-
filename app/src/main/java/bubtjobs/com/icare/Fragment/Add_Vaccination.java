@@ -77,6 +77,7 @@ public class Add_Vaccination extends Fragment {
                 Toast.makeText(getActivity(), "Invalid date and time selection", Toast.LENGTH_SHORT).show();
             }
             else{
+
                 String userId=sessionManager.getCurrentPersonId();
                 String hour=String.valueOf(H);
                 String minute=String.valueOf(M);

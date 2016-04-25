@@ -70,7 +70,7 @@ public class DataBaseManager {
 
         if(inserted>0)
         {
-           return true;
+            return true;
         }
         else{
             return false;
@@ -90,7 +90,7 @@ public class DataBaseManager {
             temp=true;
         }
         else
-        temp=false;
+            temp=false;
         this.close();
 
         return temp;
@@ -100,7 +100,7 @@ public class DataBaseManager {
     public ArrayList<Profile> getAllUser(){
         this.open();
         ArrayList<Profile> profileList = new ArrayList<>();
-       // Cursor cursor = database.query(DatabaseHelper.TABLE_USER, null, null, null, null, null, null);
+        // Cursor cursor = database.query(DatabaseHelper.TABLE_USER, null, null, null, null, null, null);
         String query = "SELECT * FROM " + DatabaseHelper.TABLE_USER + " where " +DatabaseHelper.COL_STATUS+" = 1";
         Log.i("query", query);
         Cursor cursor = database.rawQuery(query, null);
@@ -140,7 +140,7 @@ public class DataBaseManager {
         this.close();
 
         if(inserted>0)
-        return true;
+            return true;
         else
             return false;
     }
@@ -246,7 +246,7 @@ public class DataBaseManager {
                 }
             }
             else
-               diet=new Diet();
+                diet=new Diet();
         }
         catch (Exception e)
         {
@@ -311,7 +311,7 @@ public class DataBaseManager {
                     String month=date.substring(4, 6);
                     String day=date.substring(6,8);
 
-                   vaccination=new Vaccination(id,userId,va_name,""+date,hour,minute,formate,details,alarmType,alarmCode,status);
+                    vaccination=new Vaccination(id,userId,va_name,""+date,hour,minute,formate,details,alarmType,alarmCode,status);
                     vaccinationList.add(vaccination);
                     cursor.moveToNext();
                 }
@@ -356,7 +356,7 @@ public class DataBaseManager {
                     String month=date.substring(4, 6);
                     String day=date.substring(6,8);
 
-                   // diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    // diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
                     vaccination=new Vaccination(id,alarmType,"Vacination, "+details,day+"/"+month+"/"+year,hour+":"+minute+" "+formate);
                     cursor.moveToNext();
                 }
@@ -514,7 +514,7 @@ public class DataBaseManager {
                 }
             }
             else
-               profile_add=new Profile_Add();
+                profile_add=new Profile_Add();
         }
         catch (Exception e)
         {
@@ -593,7 +593,72 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_MINUTE,input.getMinute());
         contentValues.put(DatabaseHelper.COL_FORMATE,input.getFormate());
         contentValues.put(DatabaseHelper.COL_ALARM_TYPE,input.getAlarmType());
+        contentValues.put(DatabaseHelper.COL_FORMATE,input.getFormate());
         int updated = database.update(DatabaseHelper.TABLE_DIET, contentValues, DatabaseHelper.COL_ID + " = " + input.getId(), null);
+        this.close();
+        if (updated > 0) {
+            return true;
+        } else return false;
+    }
+
+    // vaccination
+
+    public Vaccination getSingleRowVaccination(String tableId){
+        Vaccination vaccination=new Vaccination();
+        this.open();
+        try {
+            String query = "SELECT * FROM " + DatabaseHelper.TABLE_VACCINATION + " where " + DatabaseHelper.COL_ID + " =  "+tableId;
+            Log.i("query",query);
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++)
+                {
+                    String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
+                    String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
+                    String date= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                    String hour= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_HOUR));
+                    String minute= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_MINUTE));
+                    String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
+                    String vaccination_name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_VACCINATION_NAME));
+                    String details= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
+                    String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
+                    String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+                    String status= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_STATUS));
+//
+//                    String year=date.substring(0, 4);
+//                    String month=date.substring(4, 6);
+//                    String day=date.substring(6,8);
+
+                    Log.i("query data",id+" "+vaccination_name+" "+date);
+                    vaccination=new Vaccination(id,userId,vaccination_name,date,hour,minute,formate,details,alarmType,alarmCode,status);
+
+
+                }
+            }
+            else
+                vaccination=new Vaccination();
+        }
+        catch (Exception e)
+        {
+            vaccination=new Vaccination();
+        }
+        this.close();
+        return vaccination;
+    }
+
+    public boolean vaccinationUpdate(Vaccination vaccination){
+        this.open();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.COL_VACCINATION_NAME,vaccination.getVa_name());
+        contentValues.put(DatabaseHelper.COL_DETAILS,vaccination.getDetails());
+        contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(vaccination.getDate()));
+        contentValues.put(DatabaseHelper.COL_MINUTE,vaccination.getMinute());
+        contentValues.put(DatabaseHelper.COL_HOUR,vaccination.getHour());
+        contentValues.put(DatabaseHelper.COL_FORMATE,vaccination.getFormate());
+
+        int updated = database.update(DatabaseHelper.TABLE_VACCINATION, contentValues, DatabaseHelper.COL_ID + " = " + vaccination.getTableId(), null);
         this.close();
         if (updated > 0) {
             return true;
