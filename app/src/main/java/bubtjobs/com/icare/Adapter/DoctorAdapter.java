@@ -1,6 +1,7 @@
 package bubtjobs.com.icare.Adapter;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,6 +41,7 @@ public class DoctorAdapter extends ArrayAdapter<Doctor> {
         TextView name_tv;
         ImageButton call_bt;
         ImageButton sms_bt;
+        Button dr_details;
 
 
     }
@@ -58,10 +60,19 @@ public class DoctorAdapter extends ArrayAdapter<Doctor> {
             viewHolder.name_tv = (TextView) convertView.findViewById(R.id.name_tv);
             viewHolder.call_bt = (ImageButton) convertView.findViewById(R.id.call_bt);
             viewHolder.sms_bt = (ImageButton) convertView.findViewById(R.id.sms_bt);
+            viewHolder.dr_details = (Button) convertView.findViewById(R.id.dr_details);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        final String _name=doctorList.get(position).getName();
+        final  String _appoinment=doctorList.get(position).getAppoinment();
+        final String _details=doctorList.get(position).getDetails();
+        final String _phone=doctorList.get(position).getPhone();
+        final String _email=doctorList.get(position).getEmail();
+
+
 
         viewHolder.doctorId_tv.setText(doctorList.get(position).getId());
         viewHolder.name_tv.setText(doctorList.get(position).getName());
@@ -69,7 +80,7 @@ public class DoctorAdapter extends ArrayAdapter<Doctor> {
         viewHolder.call_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(context, "call", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, "call", Toast.LENGTH_SHORT).show();
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + doctorList.get(position).getPhone()));
                 context.startActivity(callIntent);
@@ -82,8 +93,34 @@ public class DoctorAdapter extends ArrayAdapter<Doctor> {
                 //Toast.makeText(context, "sms", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse("smsto:" +doctorList.get(position).getPhone());
                 Intent smsIntent = new Intent(Intent.ACTION_SENDTO, uri);
-                smsIntent.putExtra("sms_body","Hello "+doctorList.get(position).getName());
+                smsIntent.putExtra("sms_body", "Hello " + doctorList.get(position).getName());
                 context.startActivity(smsIntent);
+            }
+        });
+
+        viewHolder.dr_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.ad_doctor_details, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setView(promptsView);
+
+                final TextView name = (TextView) promptsView.findViewById(R.id.name);
+                final TextView appoinment = (TextView) promptsView.findViewById(R.id.appoinment);
+                final TextView details = (TextView) promptsView.findViewById(R.id.details);
+                final TextView phone = (TextView) promptsView.findViewById(R.id.phone);
+                final TextView email = (TextView) promptsView.findViewById(R.id.email);
+
+                name.setText("Doctor Name: "+_name);
+                appoinment.setText("Appoinment: "+_appoinment);
+                details.setText("Details: " + _details);
+                phone.setText("Phone: " + _phone);
+                email.setText("Email: " + _email);
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
             }
         });
 

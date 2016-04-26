@@ -26,6 +26,7 @@ public class Add_Doctor extends Fragment {
     @Bind(R.id.details_Et)EditText details_Et;
     @Bind(R.id.phone_Et)EditText phone_Et;
     @Bind(R.id.email_Et)EditText email_Et;
+    @Bind(R.id.appoinment_Et)EditText appoinment_Et;
 
     CommonFunction function;
     DataBaseManager manager;
@@ -44,14 +45,15 @@ public class Add_Doctor extends Fragment {
 
     @OnClick(R.id.add_doctor_bt)
     public void add_doctor(){
-        if(function.isEmpty(name_Et) && function.isEmpty(details_Et)&& function.isEmpty(phone_Et)&& function.isEmpty(email_Et))
+        if(function.isEmpty(name_Et) && function.isEmpty(appoinment_Et)&&function.isEmpty(details_Et) && function.isEmpty(phone_Et)&& function.isEmpty(email_Et))
         {
             String userId=sessionManager.getCurrentPersonId();
             String name=name_Et.getText().toString();
+            String appoinment=appoinment_Et.getText().toString();
             String details=details_Et.getText().toString();
             String phone=phone_Et.getText().toString();
             String email=email_Et.getText().toString();
-            doctor=new Doctor(userId,name,details,phone,email,"1");
+            doctor=new Doctor(userId,name,appoinment,details,phone,email,"1");
            boolean isinsert=manager.add_Doctor(doctor);
 
             if(isinsert)

@@ -1,8 +1,10 @@
 package bubtjobs.com.icare.Activity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -70,7 +72,31 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+           // super.onBackPressed();
+
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Home.this);
+            alertDialog.setTitle("Exit");
+            alertDialog.setMessage("Do you want to exit?");
+
+            alertDialog.setNegativeButton("No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.cancel();
+                        }
+                    });
+
+            alertDialog.setPositiveButton("Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            finish();
+
+                        }
+                    });
+
+
+            alertDialog.show();
         }
     }
 

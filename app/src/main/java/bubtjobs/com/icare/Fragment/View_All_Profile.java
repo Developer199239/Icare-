@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.content.IntentCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 
 import bubtjobs.com.icare.Activity.PersonHome;
 import bubtjobs.com.icare.Adapter.ProfileViewAdapter;
+import bubtjobs.com.icare.Alarm_Manager.Alarm;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Profile;
 import bubtjobs.com.icare.Model.Profile_Add;
@@ -37,6 +39,7 @@ public class View_All_Profile extends Fragment {
     Profile profile;
     SessionManager sessionManager;
     DataBaseManager manager;
+    Alarm alarm;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_view__all__profile, container, false);
@@ -44,6 +47,7 @@ public class View_All_Profile extends Fragment {
 
         // add data in viewprofile class
         profileArrayList=new ArrayList<>();
+        alarm=new Alarm(getActivity());
         manager=new DataBaseManager(getActivity());
         profileArrayList=manager.getAllUser();
 
@@ -139,10 +143,40 @@ public class View_All_Profile extends Fragment {
                         // Use the Builder class for convenient dialog construction
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setMessage("Do you want to remove the user?")
-                                .setPositiveButton("delete", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("remove", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        boolean isRemove = manager.removeRow("user", profileArrayList.get(position).getUserId());
+
+
+                                        String userId=profileArrayList.get(position).getUserId();
+                                        ArrayList<String> diet_alarmCode=new ArrayList<String>();
+                                        ArrayList<String> vaccination_alarmCode=new ArrayList<String>();
+                                        diet_alarmCode=manager.getAlarmCode("diet",userId);
+                                        vaccination_alarmCode=manager.getAlarmCode("vaccination",userId);
+
+
+                                        boolean isRemove = manager.removeRow("user",userId);
                                         if (isRemove) {
+
+                                            //alarmCancel
+                                           if(diet_alarmCode!=null)
+                                           {
+                                               for(String obj:diet_alarmCode)
+                                               {
+                                                   Log.i("obj", obj);
+                                                   alarm.cancelAlarm(Integer.parseInt(obj));
+                                               }
+                                           }
+
+                                            if(vaccination_alarmCode!=null)
+                                            {
+                                                for(String obj:vaccination_alarmCode)
+                                                {
+                                                    Log.i("obj", obj);
+                                                    alarm.cancelAlarm(Integer.parseInt(obj));
+                                                }
+                                            }
+
+
                                             Toast.makeText(getActivity(),"Remove Successfully",Toast.LENGTH_LONG).show();
 
                                             Fragment currentFragment;

@@ -11,20 +11,23 @@ public class Doctor {
     private String phone;
     private String email;
     private String status;
+    private String appoinment;
 
     public Doctor(){}
-    public Doctor(String userId, String name, String details, String phone, String email, String status) {
+    public Doctor(String userId, String name, String appoinment, String details, String phone, String email,String status) {
         this.userId = userId;
         this.name = name;
+        this.appoinment=appoinment;
         this.details = details;
         this.phone = phone;
         this.email = email;
-        this.status = status;
+        this.status=status;
     }
-    public Doctor(String id,String userId, String name, String details, String phone, String email, String status) {
+    public Doctor(String id,String userId, String name,String appoinment, String details, String phone, String email, String status) {
         this.id=id;
         this.userId = userId;
         this.name = name;
+        this.appoinment=appoinment;
         this.details = details;
         this.phone = phone;
         this.email = email;
@@ -49,6 +52,14 @@ public class Doctor {
 
     public String getName() {
         return name;
+    }
+
+    public String getAppoinment() {
+        return appoinment;
+    }
+
+    public void setAppoinment(String appoinment) {
+        this.appoinment = appoinment;
     }
 
     public void setName(String name) {

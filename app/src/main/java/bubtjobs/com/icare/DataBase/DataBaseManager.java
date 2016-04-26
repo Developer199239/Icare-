@@ -378,6 +378,7 @@ public class DataBaseManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.COL_USER_ID,doctor.getUserId());
         contentValues.put(DatabaseHelper.COL_NAME, doctor.getName());
+        contentValues.put(DatabaseHelper.COL_APPOINMENT, doctor.getAppoinment());
         contentValues.put(DatabaseHelper.COL_DETAILS, doctor.getDetails());
         contentValues.put(DatabaseHelper.COL_PHONE, doctor.getPhone());
         contentValues.put(DatabaseHelper.COL_EMAIL, doctor.getEmail());
@@ -406,12 +407,13 @@ public class DataBaseManager {
                     String id= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ID));
                     String userId= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_USER_ID));
                     String name= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
+                    String appoinment= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_APPOINMENT));
                     String details= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DETAILS));
                     String phone= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_PHONE));
                     String email= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_EMAIL));
                     String status= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_STATUS));
 
-                    doctor=new Doctor(id,userId,name,details,phone,email,status);
+                    doctor=new Doctor(id,userId,name,appoinment,details,phone,email,status);
                     doctorList.add(doctor);
                     cursor.moveToNext();
                 }
@@ -656,13 +658,41 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_DATE,Integer.parseInt(vaccination.getDate()));
         contentValues.put(DatabaseHelper.COL_MINUTE,vaccination.getMinute());
         contentValues.put(DatabaseHelper.COL_HOUR,vaccination.getHour());
-        contentValues.put(DatabaseHelper.COL_FORMATE,vaccination.getFormate());
+        contentValues.put(DatabaseHelper.COL_FORMATE, vaccination.getFormate());
 
         int updated = database.update(DatabaseHelper.TABLE_VACCINATION, contentValues, DatabaseHelper.COL_ID + " = " + vaccination.getTableId(), null);
         this.close();
         if (updated > 0) {
             return true;
         } else return false;
+    }
+
+
+    public ArrayList<String> getAlarmCode(String table,String userId)
+    {
+        ArrayList<String>codeList=new ArrayList<>();
+        this.open();
+        try{
+            String query = "SELECT * FROM " + table + " where " + DatabaseHelper.COL_USER_ID + " =  "+userId +" and "+DatabaseHelper.COL_STATUS+" = 1";
+            Log.i("alarmCode",query);
+            Cursor cursor=database.rawQuery(query,null);
+            cursor.moveToFirst();
+            if(cursor!=null && cursor.getCount()>0)
+            {
+                for(int i=0;i<cursor.getCount();i++) {
+                    String alarmCode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+                    Log.i("alarmCode", alarmCode);
+                    codeList.add(alarmCode);
+                    cursor.moveToNext();
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            codeList=new ArrayList<>();
+        }
+        this.close();
+        return codeList;
     }
 
 }

@@ -35,8 +35,6 @@ public class Doctor_list extends Fragment {
         manager=new DataBaseManager(getActivity());
         doctorList=new ArrayList<>();
         doctorList=manager.getAllDoctor();
-        //doctorList=manager.getDiet("<");
-
         if(doctorList!=null && doctorList.size()>0)
         {
             DoctorAdapter adapter=new DoctorAdapter(view.getContext(),doctorList);
@@ -46,14 +44,14 @@ public class Doctor_list extends Fragment {
             Toast.makeText(getActivity(), "DoctorList Not Available", Toast.LENGTH_LONG).show();
         }
 
-//        // set on click linear
-//
-//        todayDietListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // set on click linear
+
+//        doctorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //
-//                String dietId = toDayDietList.get(position).getDietId();
-//                Toast.makeText(getActivity(), dietId, Toast.LENGTH_SHORT).show();
+//                String doctorId = doctorList.get(position).getId();
+//                Toast.makeText(getActivity(), doctorId, Toast.LENGTH_SHORT).show();
 //            }
 //        });
 
