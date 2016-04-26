@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import bubtjobs.com.icare.Model.Diet;
+import bubtjobs.com.icare.Others.CommonFunction;
 import bubtjobs.com.icare.R;
 
 /**
@@ -19,11 +20,13 @@ public class DietAdapter extends ArrayAdapter<Diet>{
 
     private ArrayList<Diet> todayDietList;
     private Context context;
+    CommonFunction function;
 
     public DietAdapter(Context context, ArrayList<Diet> todayDietList) {
         super(context, R.layout.custom_diet_chart,todayDietList);
         this.context = context;
         this.todayDietList = todayDietList;
+        function=new CommonFunction();
     }
     static class ViewHolder {
         TextView dietId_tv;
@@ -59,7 +62,22 @@ public class DietAdapter extends ArrayAdapter<Diet>{
         viewHolder.diet_type_tv.setText(todayDietList.get(position).getDietType());
         viewHolder.menu_tv.setText("Menu: "+todayDietList.get(position).getMenu());
         viewHolder.time_tv.setText("Time: "+todayDietList.get(position).getDietTime());
-        viewHolder.date_tv.setText("Date: "+todayDietList.get(position).getDietDate());
+
+
+        //
+        String currentDate=function.currentDate();
+        String year=currentDate.substring(0, 4);
+        String month=currentDate.substring(4, 6);
+        String day=currentDate.substring(6, 8);
+        //
+
+        if(todayDietList.get(position).getIsdaily().equals("1")  && todayDietList.get(position).getDietDate().equals(day+"/"+month+"/"+year) ){
+            viewHolder.date_tv.setText("Dialy Alarm");
+        }
+       else{
+
+            viewHolder.date_tv.setText("Date: "+todayDietList.get(position).getDietDate());
+        }
 
 
         return convertView;

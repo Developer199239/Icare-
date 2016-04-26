@@ -40,10 +40,9 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="CUSTOM_ACTION" />
+                <action android:name="CUSTOM_ACTION_120305" />
             </intent-filter>
         </receiver>
-
         <service
             android:name=".Service.Calling_service"/>
     </application>

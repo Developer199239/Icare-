@@ -9,15 +9,17 @@ public class Diet {
     private String menu;
     private String dietTime;
     private String dietDate;
+    private String isdaily;
 
     public Diet(){}
 
-    public Diet(String dietId, String dietType, String menu, String dietTime, String dietDate) {
+    public Diet(String dietId, String dietType, String menu, String dietTime, String dietDate,String isdaily) {
         this.dietId = dietId;
         this.dietType = dietType;
         this.menu = menu;
         this.dietTime = dietTime;
         this.dietDate = dietDate;
+        this.isdaily=isdaily;
     }
 
     public String getDietId() {
@@ -58,5 +60,13 @@ public class Diet {
 
     public void setDietDate(String dietDate) {
         this.dietDate = dietDate;
+    }
+
+    public String getIsdaily() {
+        return isdaily;
+    }
+
+    public void setIsdaily(String isdaily) {
+        this.isdaily = isdaily;
     }
 }

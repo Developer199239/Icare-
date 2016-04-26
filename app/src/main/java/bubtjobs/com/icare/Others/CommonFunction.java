@@ -54,6 +54,7 @@ public class CommonFunction {
         String dayTemp=String.valueOf(cal.get(Calendar.DAY_OF_MONTH));
         int currentHour=cal.get(Calendar.HOUR_OF_DAY);
         int currentMinute=cal.get(Calendar.MINUTE);
+        int currentSecond=cal.get(Calendar.SECOND);
 
         if(monthTemp.length()==1)
             monthTemp="0"+monthTemp;
@@ -118,6 +119,7 @@ public class CommonFunction {
             int dayAalarmManager=86400000;
             int hourAlarmManager=3600000;
             int minuteAlarmManager=60000;
+            int secondAlarmManager=1000;
 
             Long Year =Long.parseLong(String.valueOf(365*yearInterval*dayAalarmManager));
             Long Month =Long.parseLong(String.valueOf(monthInterval*dayAalarmManager));
@@ -125,7 +127,7 @@ public class CommonFunction {
             Long Hour =Long.parseLong(String.valueOf(hourInterval*hourAlarmManager));
             Long Minute =Long.parseLong(String.valueOf(minuteInterval*minuteAlarmManager));
 
-            Long finalInterval=Year+Month+Day+Hour+Minute;
+            Long finalInterval=Year+Month+Day+Hour+Minute-(secondAlarmManager*currentSecond);
             return finalInterval;
             //return " y="+Year+" m= "+Month+" d= "+Day+" h= "+Hour+"  m= "+Minute+" c="+currentHour;
         }

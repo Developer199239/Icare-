@@ -31,7 +31,7 @@ public class Alarm {
     }
 
     private PendingIntent createClockTickIntent(Context context,int alarmCode,String table,String tableId,String userId) {
-        Intent intent = new Intent("CUSTOM_ACTION");
+        Intent intent = new Intent("CUSTOM_ACTION_120305");
 
         intent.putExtra("table",table);
         intent.putExtra("tableId",tableId);
@@ -44,7 +44,7 @@ public class Alarm {
 
     public void cancelAlarm(int alarmCode){
 
-        Intent intent = new Intent("CUSTOM_ACTION");
+        Intent intent = new Intent("CUSTOM_ACTION_120305");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmCode, intent, 0);
         alarmManager.cancel(pendingIntent);
     }

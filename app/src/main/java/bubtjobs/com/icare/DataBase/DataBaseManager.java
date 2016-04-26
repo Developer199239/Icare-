@@ -135,6 +135,7 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_FORMATE,diet_input.getFormate());
         contentValues.put(DatabaseHelper.COL_ALARM_TYPE,diet_input.getAlarmType());
         contentValues.put(DatabaseHelper.COL_ALARM_CODE,diet_input.getAlarmCode());
+        contentValues.put(DatabaseHelper.COL_IS_ALARM,diet_input.getIsDailyAlarm());
         contentValues.put(DatabaseHelper.COL_STATUS, diet_input.getStatus());
         long inserted = database.insert(DatabaseHelper.TABLE_DIET, null, contentValues);
         this.close();
@@ -148,7 +149,13 @@ public class DataBaseManager {
         dietList=new ArrayList<>();
         this.open();
         try {
-            String query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
+            String query;
+
+            if(condition.equals("=="))
+                query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where (" + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId()+") or ( "+DatabaseHelper.COL_IS_ALARM+" = 1 and "+DatabaseHelper.COL_DATE+" < "+function.currentDate()+" and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId()+")";
+            else
+             query = "SELECT * FROM " + DatabaseHelper.TABLE_DIET + " where " + DatabaseHelper.COL_DATE + " "+condition+" " + function.currentDate()+" and "+DatabaseHelper.COL_STATUS+" = 1 and "+DatabaseHelper.COL_USER_ID+" = "+sessionManager.getCurrentPersonId();
+
             Log.i("query",query);
             Cursor cursor = database.rawQuery(query, null);
             cursor.moveToFirst();
@@ -166,12 +173,13 @@ public class DataBaseManager {
                     String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
                     String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
                     String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+                    String isDaily= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IS_ALARM));
 
                     String year=date.substring(0, 4);
                     String month=date.substring(4, 6);
                     String day=date.substring(6,8);
 
-                    diet=new Diet(id,dietType,menu,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    diet=new Diet(id,dietType,menu,hour+":"+minute+" "+formate,day+"/"+month+"/"+year,isDaily);
                     dietList.add(diet);
                     cursor.moveToNext();
                 }
@@ -236,12 +244,12 @@ public class DataBaseManager {
                     String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
                     String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
                     String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
-
+                    String isDaily= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IS_ALARM));
                     String year=date.substring(0, 4);
                     String month=date.substring(4, 6);
                     String day=date.substring(6,8);
 
-                    diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
+                    diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day,isDaily);
                     cursor.moveToNext();
                 }
             }
@@ -564,6 +572,7 @@ public class DataBaseManager {
                     String formate= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_FORMATE));
                     String alarmType= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_TYPE));
                     String alarmCode= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ALARM_CODE));
+                    String isAlarm= cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_IS_ALARM));
 
                     String year=date.substring(0, 4);
                     String month=date.substring(4, 6);
@@ -571,7 +580,7 @@ public class DataBaseManager {
 
                     //diet=new Diet(id,alarmType,dietType,hour+":"+minute+" "+formate,year+"/"+month+"/"+day);
                     //cursor.moveToNext();
-                    dietInput=new Diet_Input(userId,dietType,menu,date,hour,minute,formate,alarmType,alarmCode,"1");
+                    dietInput=new Diet_Input(userId,dietType,menu,date,hour,minute,formate,alarmType,alarmCode,isAlarm,"1");
                 }
             }
             else
@@ -595,6 +604,7 @@ public class DataBaseManager {
         contentValues.put(DatabaseHelper.COL_MINUTE,input.getMinute());
         contentValues.put(DatabaseHelper.COL_FORMATE,input.getFormate());
         contentValues.put(DatabaseHelper.COL_ALARM_TYPE,input.getAlarmType());
+        contentValues.put(DatabaseHelper.COL_IS_ALARM,input.getAlarmType());
         contentValues.put(DatabaseHelper.COL_FORMATE,input.getFormate());
         int updated = database.update(DatabaseHelper.TABLE_DIET, contentValues, DatabaseHelper.COL_ID + " = " + input.getId(), null);
         this.close();

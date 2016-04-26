@@ -88,7 +88,12 @@ public class Add_diet extends Fragment {
                 String hour=String.valueOf(H);
                 String minute=String.valueOf(M);
                 int alarmcode=function.alarmCodeGenerate();
-                input=new Diet_Input(userId,diet_type,menu,date,hour,minute,TimeFormat,alarmType,""+alarmcode,"1");
+                if(alarmType.equals("Alarm")) {
+                    input = new Diet_Input(userId, diet_type, menu, date, hour, minute, TimeFormat, alarmType, "" + alarmcode,"0", "1");
+                }
+                else{
+                    input = new Diet_Input(userId, diet_type, menu, date, hour, minute, TimeFormat, alarmType, "" + alarmcode,"1", "1");
+                }
                 Boolean insert=manager.addDiet(input);
                 if(insert) {
                     String currentPersonId=sessionManager.getCurrentPersonId();

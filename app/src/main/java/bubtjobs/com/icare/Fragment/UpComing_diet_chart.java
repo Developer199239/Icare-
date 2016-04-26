@@ -224,8 +224,13 @@ public class UpComing_diet_chart extends Fragment {
                                 String hour=String.valueOf(H);
                                 String minute=String.valueOf(M);
                                 //int alarmcode=function.alarmCodeGenerate();
-
-                                Diet_Input input=new Diet_Input(dietId,diet_type,menu,date,hour,minute,TimeFormat,alarmType);
+                                Diet_Input input=new Diet_Input();
+                                if(alarmType.equals("Alarm")) {
+                                    input = new Diet_Input(dietId, diet_type, menu, date, hour, minute, TimeFormat, alarmType,"0");
+                                }
+                                else{
+                                    input = new Diet_Input(dietId, diet_type, menu, date, hour, minute, TimeFormat, alarmType,"1");
+                                }
                                 Boolean insert=manager.dietUpdate(input);
                                 if(insert)
                                 {

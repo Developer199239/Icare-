@@ -15,10 +15,11 @@ public class Diet_Input {
     private String alarmCode;
     private String status;
     private String id;
+    private String isDailyAlarm;
 
     public Diet_Input(){}
 
-    public Diet_Input(String userId, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType, String alarmCode, String status) {
+    public Diet_Input(String userId, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType, String alarmCode,String isDailyAlarm, String status) {
         this.userId = userId;
         this.dietType = dietType;
         this.menu = menu;
@@ -28,10 +29,11 @@ public class Diet_Input {
         this.formate = formate;
         this.alarmType = alarmType;
         this.alarmCode = alarmCode;
+        this.isDailyAlarm=isDailyAlarm;
         this.status = status;
     }
 
-    public Diet_Input(String id, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType) {
+    public Diet_Input(String id, String dietType, String menu, String date, String hour, String minute, String formate, String alarmType,String isDailyAlarm) {
         this.id = id;
         this.dietType = dietType;
         this.menu = menu;
@@ -40,6 +42,7 @@ public class Diet_Input {
         this.minute = minute;
         this.formate = formate;
         this.alarmType = alarmType;
+        this.isDailyAlarm=isDailyAlarm;
     }
 
     public String getId() {
@@ -128,5 +131,13 @@ public class Diet_Input {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getIsDailyAlarm() {
+        return isDailyAlarm;
+    }
+
+    public void setIsDailyAlarm(String isDailyAlarm) {
+        this.isDailyAlarm = isDailyAlarm;
     }
 }
