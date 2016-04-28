@@ -58,7 +58,12 @@ public class Add_Doctor extends Fragment {
 
             if(isinsert)
             {
-                Toast.makeText(getActivity(), "Insert Successfully", Toast.LENGTH_SHORT).show();
+                name_Et.getText().clear();
+                appoinment_Et.getText().clear();
+                details_Et.getText().clear();
+                phone_Et.getText().clear();
+                email_Et.getText().clear();
+                Toast.makeText(getActivity(), "Add Doctor Profile Successfully", Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();

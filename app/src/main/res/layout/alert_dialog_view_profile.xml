@@ -11,7 +11,7 @@
         android:id="@+id/profileDetails_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Detatils"
+        android:text="View Details"
         android:textAllCaps="false"
         android:padding="20dp"
         android:background="@drawable/custom_button_3"

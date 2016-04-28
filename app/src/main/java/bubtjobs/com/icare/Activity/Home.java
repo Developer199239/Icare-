@@ -7,22 +7,19 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.IntentCompat;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import bubtjobs.com.icare.Fragment.Add_Profile;
 import bubtjobs.com.icare.Fragment.ChangePassword;
 import bubtjobs.com.icare.Fragment.Emergency_Call;
+import bubtjobs.com.icare.Fragment.HealthCenter;
 import bubtjobs.com.icare.Fragment.View_All_Profile;
 import bubtjobs.com.icare.R;
 
@@ -140,6 +137,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         }
         else if(id==R.id.nav_health_center)
         {
+            toolbar.setTitle("Health Center");
+            currentFragment=new HealthCenter();
 
         }
         else if(id==R.id.nav_emergency_call)

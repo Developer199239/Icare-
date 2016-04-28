@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -57,7 +58,7 @@ public class UpComming_Vaccination extends Fragment {
 
 
     int H=0,M=0;
-    String YY,MM,DD,TimeFormat;
+    private String YY,MM,DD,TimeFormat;
     Button date_bt;
     Button time_bt;
     @Override
@@ -347,35 +348,50 @@ public class UpComming_Vaccination extends Fragment {
     };
 
     private TimePickerDialog.OnTimeSetListener timePickerListener= new TimePickerDialog.OnTimeSetListener() {
+
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-
-
             Calendar calendar = Calendar.getInstance();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             String formate="";
-            if(hour < 12 && hour >= 0)
-            {
-                formate="AM";
-            }
-            else {
-                hour -= 12;
-                if(hour == 0)
-                {
-                    hour = 12;
-                }
-                formate="PM";
-            }
+//            if(hour < 12 && hour >= 0)
+//            {
+//                formate="AM";
+//            }
+//            else {
+//                hour -= 12;
+//                if(hour == 0)
+//                {
+//                    hour = 12;
+//                }
+//                formate="PM";
+//            }
+
+            //SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
+
 
 
             int Hour = Integer.parseInt(String.valueOf(hourOfDay));
             int min = Integer.parseInt(String.valueOf(minute));
             H=Hour;
             M=min;
-            TimeFormat=formate;
-            time_bt.setText(H + ":" + M);
+
+            Log.i("time",Hour%12 + ":" + min + " " + ((Hour>=12) ? "PM" : "AM"));
+
+            if(Hour>=12)
+            TimeFormat="PM";
+            else
+            TimeFormat="AM";
+            //time_bt.setText(H + ":" + M);
             // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
+
+            if(String.valueOf(M).length()==1)
+            {
+                time_bt.setText(H%12 + ":" + "0"+M+" "+TimeFormat);
+            }
+            else{
+                time_bt.setText(H%12 + ":" + M+" "+TimeFormat);
+            }
 
         }
     };

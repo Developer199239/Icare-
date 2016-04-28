@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +93,17 @@ public class Add_Vaccination extends Fragment {
                     String table="vaccination";
                     String dietId=""+manager.lastIndex(table);
 
-                    alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
-                    Toast.makeText(getActivity(), "Data Insert Successfully", Toast.LENGTH_SHORT).show();
+                    alarm.setAlarm(value, alarmcode, table, dietId, currentPersonId);
+
+                    vaccination_Com.setSelection(0);
+                    va_detatils_Et.getText().clear();
+                    date_bt.setText("Pick Date");
+                    time_bt.setText("Pick Time");
+                    va_reminder_Cb.setChecked(false);
+
+
+                    Toast.makeText(getActivity(), "Add Vaccination Successfully", Toast.LENGTH_SHORT).show();
+
                 }
                 else{
                     Toast.makeText(getActivity(), "Error...", Toast.LENGTH_SHORT).show();
@@ -186,8 +196,23 @@ public class Add_Vaccination extends Fragment {
             int min = Integer.parseInt(String.valueOf(minute));
             H=Hour;
             M=min;
-            TimeFormat=formate;
-            time_bt.setText(H + ":" + M);
+
+            Log.i("time", Hour % 12 + ":" + min + " " + ((Hour >= 12) ? "PM" : "AM"));
+
+            if(Hour>=12)
+                TimeFormat="PM";
+            else
+                TimeFormat="AM";
+            //time_bt.setText(H + ":" + M);
+            // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
+
+            if(String.valueOf(M).length()==1)
+            {
+                time_bt.setText(H%12 + ":" + "0"+M+" "+TimeFormat);
+            }
+            else{
+                time_bt.setText(H%12 + ":" + M+" "+TimeFormat);
+            }
         }
     };
 

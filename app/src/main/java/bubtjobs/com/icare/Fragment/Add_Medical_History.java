@@ -163,6 +163,9 @@ public class Add_Medical_History extends Fragment {
                 Boolean isinsert=manager.add_medical_history(medical_history);
                 if(isinsert){
                     pre_image.setImageResource(0);
+                    details_et.getText().clear();
+                    name_et.getText().clear();
+                    date_bt.setText("Pick Date");
                     Toast.makeText(getActivity(), "Medial History Insert Successfully", Toast.LENGTH_SHORT).show();
                 }
                 else

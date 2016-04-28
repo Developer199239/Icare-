@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +119,7 @@ public class Today_diet_chart extends Fragment {
         int currentMinute=cal.get(Calendar.MINUTE);
 
         //================================== check list item  isPossible to  update or not================
-        if(currentHour>hour || (hour==currentHour && currentMinute>minute) ||(hour==currentHour && currentMinute==minute))
+        if((currentHour>hour || (hour==currentHour && currentMinute>minute) ||(hour==currentHour && currentMinute==minute)) && alarmType.equals("Alarm") )
         {
             Toast.makeText(getActivity(), "You can not modify ", Toast.LENGTH_SHORT).show();
         }
@@ -406,13 +407,27 @@ public class Today_diet_chart extends Fragment {
                 formate="PM";
             }
 
-
             int Hour = Integer.parseInt(String.valueOf(hourOfDay));
             int min = Integer.parseInt(String.valueOf(minute));
             H=Hour;
             M=min;
-            TimeFormat=formate;
-            time_bt.setText(H + ":" + M);
+
+            Log.i("time", Hour % 12 + ":" + min + " " + ((Hour >= 12) ? "PM" : "AM"));
+
+            if(Hour>=12)
+                TimeFormat="PM";
+            else
+                TimeFormat="AM";
+            //time_bt.setText(H + ":" + M);
+            // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
+
+            if(String.valueOf(M).length()==1)
+            {
+                time_bt.setText(H%12 + ":" + "0"+M+" "+TimeFormat);
+            }
+            else{
+                time_bt.setText(H%12 + ":" + M+" "+TimeFormat);
+            }
             // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
 
         }

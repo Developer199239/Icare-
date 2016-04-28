@@ -1,7 +1,9 @@
 package bubtjobs.com.icare.Fragment;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.IntentCompat;
@@ -43,8 +45,25 @@ public class Login extends Fragment {
         commonFunction=new CommonFunction();
         manager=new DataBaseManager(getActivity());
        //Toast.makeText(getActivity(), ""+sessionManager.getInstallStatus(), Toast.LENGTH_SHORT).show();
-        if(sessionManager.getInstallStatus()==true)
+        if(sessionManager.getInstallStatus()==true){
             login_bt.setText("Sign Up");
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Using this application first of all create a account")
+                    .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+
+                        }
+                    });
+            builder.create();
+            builder.show();
+        }
+
     }
 
     @OnClick(R.id.loginBt)
@@ -56,7 +75,7 @@ public class Login extends Fragment {
         {
             sessionManager.setUserName(userNameEt.getText().toString(), passwordEt.getText().toString());
             sessionManager.setInstallStatus();
-            Toast.makeText(getActivity(), "Registation complete", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Registation complete and Add new Profile", Toast.LENGTH_LONG).show();
             Add_Profile add_profile=new Add_Profile();
             FragmentManager manager= getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
@@ -73,6 +92,7 @@ public class Login extends Fragment {
                         startActivity(intent);
                     }
                     else {
+                        Toast.makeText(getActivity(), "Add new Profile", Toast.LENGTH_LONG).show();
                         Add_Profile add_profile = new Add_Profile();
                         FragmentManager manager = getFragmentManager();
                         FragmentTransaction transaction = manager.beginTransaction();

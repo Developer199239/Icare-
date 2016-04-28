@@ -119,9 +119,9 @@ public class View_All_Profile extends Fragment {
                         if (profile_add != null) {
                             name.setText("Name: " + profile_add.getName());
                             relation.setText("Relation: " + profile_add.getRelation());
-                            age.setText("Age: " + profile_add.getAge());
-                            height.setText("Height: " + profile_add.getHeight());
-                            weight.setText("Weight: " + profile_add.getWeight());
+                            age.setText("Age: " + profile_add.getAge()+" year");
+                            height.setText("Height: " + profile_add.getHeight()+" feet");
+                            weight.setText("Weight: " + profile_add.getWeight()+" kg");
                             major_dis.setText("Major Disease: " + profile_add.getMajor_dis());
                             blood_group.setText("Blood Group: " + profile_add.getBlood());
                         } else {

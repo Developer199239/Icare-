@@ -133,7 +133,7 @@
                     android:id="@+id/weight_Et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/height_ht"
+                    android:hint="@string/weight_ht"
                     style="@style/editText"
                     android:inputType="numberDecimal"
                     />

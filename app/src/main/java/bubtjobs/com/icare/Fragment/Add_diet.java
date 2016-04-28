@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,7 +107,13 @@ public class Add_diet extends Fragment {
                         alarm.setDailyAlarm(value,alarmcode,table,dietId,currentPersonId);
                     }
 
-                    Toast.makeText(getActivity(), "Add diet successfully "+alarmcode, Toast.LENGTH_SHORT).show();
+                    diet_Com.setSelection(0);
+                    menu_Et.getText().clear();
+                    date_bt.setText("Pick Date");
+                    time_bt.setText("Pick Time");
+                    radioGroup.clearCheck();
+
+                    Toast.makeText(getActivity(), "Add diet successfully ", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -201,13 +208,27 @@ public class Add_diet extends Fragment {
                 formate="PM";
             }
 
-
             int Hour = Integer.parseInt(String.valueOf(hourOfDay));
             int min = Integer.parseInt(String.valueOf(minute));
             H=Hour;
             M=min;
-            TimeFormat=formate;
-            time_bt.setText(H + ":" + M);
+
+            Log.i("time", Hour % 12 + ":" + min + " " + ((Hour >= 12) ? "PM" : "AM"));
+
+            if(Hour>=12)
+                TimeFormat="PM";
+            else
+                TimeFormat="AM";
+            //time_bt.setText(H + ":" + M);
+            // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
+
+            if(String.valueOf(M).length()==1)
+            {
+                time_bt.setText(H%12 + ":" + "0"+M+" "+TimeFormat);
+            }
+            else{
+                time_bt.setText(H%12 + ":" + M+" "+TimeFormat);
+            }
            // Toast.makeText(getActivity(), Hour+":"+min+" "+formate, Toast.LENGTH_SHORT).show();
 
         }

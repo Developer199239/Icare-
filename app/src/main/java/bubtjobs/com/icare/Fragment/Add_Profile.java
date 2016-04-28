@@ -56,16 +56,24 @@ public class Add_Profile extends Fragment {
     public void add(){
         function=new CommonFunction();
         dob_bt.getText().toString();
-        if(function.isEmpty(name_Et) &&function.isEmpty(height_Et) &&function.isEmpty(weight_Et) &&function.isEmpty(majorDis_Et) && ageSelect())
+        if(function.isEmpty(name_Et) &&function.isEmpty(height_Et) &&function.isEmpty(weight_Et) && ageSelect())
         {
             String name=name_Et.getText().toString();
             String relation=relation_Com.getSelectedItem().toString();
             String age=dob_bt.getText().toString();
             String weight=weight_Et.getText().toString();
             String height=height_Et.getText().toString();
-            String major_dis=majorDis_Et.getText().toString();
             String blood=bloodGroup_Com.getSelectedItem().toString();
 
+            String major_dis="";
+
+            if(function.isEmpty(majorDis_Et))
+            {
+                major_dis=majorDis_Et.getText().toString();
+            }
+            else{
+                major_dis="none";
+            }
 
 
             profile_add=new Profile_Add(name,relation,age,height,weight,major_dis,blood);
