@@ -119,7 +119,7 @@
                 android:id="@+id/email_Et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Put Doctor Eamil"
+                android:hint="Put Doctor Email"
                 style="@style/editText"
                 android:inputType="textEmailAddress"
                 />

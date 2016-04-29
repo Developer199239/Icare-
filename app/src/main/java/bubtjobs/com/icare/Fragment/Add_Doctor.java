@@ -47,26 +47,29 @@ public class Add_Doctor extends Fragment {
     public void add_doctor(){
         if(function.isEmpty(name_Et) && function.isEmpty(appoinment_Et)&&function.isEmpty(details_Et) && function.isEmpty(phone_Et)&& function.isEmpty(email_Et))
         {
-            String userId=sessionManager.getCurrentPersonId();
-            String name=name_Et.getText().toString();
-            String appoinment=appoinment_Et.getText().toString();
-            String details=details_Et.getText().toString();
-            String phone=phone_Et.getText().toString();
-            String email=email_Et.getText().toString();
-            doctor=new Doctor(userId,name,appoinment,details,phone,email,"1");
-           boolean isinsert=manager.add_Doctor(doctor);
+            if(function.isValidEmail(email_Et)) {
+                String userId = sessionManager.getCurrentPersonId();
+                String name = name_Et.getText().toString();
+                String appoinment = appoinment_Et.getText().toString();
+                String details = details_Et.getText().toString();
+                String phone = phone_Et.getText().toString();
+                String email = email_Et.getText().toString();
+                doctor = new Doctor(userId, name, appoinment, details, phone, email, "1");
+                boolean isinsert = manager.add_Doctor(doctor);
 
-            if(isinsert)
-            {
-                name_Et.getText().clear();
-                appoinment_Et.getText().clear();
-                details_Et.getText().clear();
-                phone_Et.getText().clear();
-                email_Et.getText().clear();
-                Toast.makeText(getActivity(), "Add Doctor Profile Successfully", Toast.LENGTH_SHORT).show();
+                if (isinsert) {
+                    name_Et.getText().clear();
+                    appoinment_Et.getText().clear();
+                    details_Et.getText().clear();
+                    phone_Et.getText().clear();
+                    email_Et.getText().clear();
+                    Toast.makeText(getActivity(), "Add Doctor Profile Successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Please Enter Valid Email Address", Toast.LENGTH_SHORT).show();
             }
         }
         else{

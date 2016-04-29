@@ -47,6 +47,7 @@ public class Emergency_Call extends Fragment {
         else
         {
             set_bt.setEnabled(false);
+            phone_et.setText(sessionManager.getEmergencyNumber());
             phone_et.setEnabled(false);
         }
         return view;
@@ -60,7 +61,6 @@ public class Emergency_Call extends Fragment {
             set_bt.setEnabled(false);
             phone_et.setEnabled(false);
             cancel_bt.setEnabled(true);
-            phone_et.getText().clear();
             getActivity().startService(new Intent(getActivity(), Calling_service.class));
         }
         else{
@@ -74,7 +74,7 @@ public class Emergency_Call extends Fragment {
         cancel_bt.setEnabled(false);
         set_bt.setEnabled(true);
         phone_et.setEnabled(true);
-        phone_et.setHint("Put Your Emergency phone Number");
+       // phone_et.setHint("Put Your Emergency phone Number");
         getActivity().stopService(new Intent(getActivity(), Calling_service.class));
     }
 

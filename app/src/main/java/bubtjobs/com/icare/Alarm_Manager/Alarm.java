@@ -27,7 +27,8 @@ public class Alarm {
 
 
     public void setDailyAlarm(Long millis,int alarmCode,String table,String tableId,String currentUserId){
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millis, 86400000, createClockTickIntent(context, alarmCode, table, tableId, currentUserId));
+        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millis, 86400000, createClockTickIntent(context, alarmCode, table, tableId, currentUserId));
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + millis,86400000,createClockTickIntent(context, alarmCode, table, tableId, currentUserId));
     }
 
     private PendingIntent createClockTickIntent(Context context,int alarmCode,String table,String tableId,String userId) {

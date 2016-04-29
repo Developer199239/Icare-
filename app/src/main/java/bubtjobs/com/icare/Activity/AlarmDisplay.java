@@ -40,6 +40,7 @@ public class AlarmDisplay extends AppCompatActivity {
     DataBaseManager manager;
     Diet diet;
     Vaccination vaccination;
+    boolean isring=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,15 +87,17 @@ public class AlarmDisplay extends AppCompatActivity {
         personName.setText("Name: "+name);
         date.setText("Date: "+alarm_Date);
         time.setText("Time: "+alarm_time);
-        details.setText("Ditails: "+alarm_details);
+        details.setText("Details: "+alarm_details);
 
         uriAlarm=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         if(ringTone!=null){
             ringTone.stop();
         }
-        ringTone = RingtoneManager.getRingtone(getApplicationContext(), uriAlarm);
-        ringTone.play();
-        timer.start();
+            ringTone = RingtoneManager.getRingtone(getApplicationContext(), uriAlarm);
+            ringTone.play();
+            timer.start();
+            isring=false;
+
 
     }
 
@@ -123,7 +126,8 @@ public class AlarmDisplay extends AppCompatActivity {
 
     @OnClick(R.id.done)
     public void alarmDone(){
-        Toast.makeText(AlarmDisplay.this, "done", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(AlarmDisplay.this, "done", Toast.LENGTH_SHORT).show();
+        finish();
        timer.cancel();
         if(ringTone!=null){
             ringTone.stop();

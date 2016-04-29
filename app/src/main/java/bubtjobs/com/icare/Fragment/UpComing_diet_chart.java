@@ -310,7 +310,7 @@ public class UpComing_diet_chart extends Fragment {
                                     fragmanager=getFragmentManager();
                                     FragmentTransaction transaction;
 
-                                    currentFragment=new Today_diet_chart();
+                                    currentFragment=new UpComing_diet_chart();
                                     transaction = fragmanager.beginTransaction();
                                     transaction.replace(R.id.homeFragment, currentFragment);
                                     transaction.addToBackStack(null);

@@ -48,16 +48,10 @@ public class Login extends Fragment {
         if(sessionManager.getInstallStatus()==true){
             login_bt.setText("Sign Up");
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("Using this application first of all create a account")
-                    .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            builder.setMessage("Using this application first of all need to  create a account")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-
                         }
                     });
             builder.create();
@@ -92,7 +86,7 @@ public class Login extends Fragment {
                         startActivity(intent);
                     }
                     else {
-                        Toast.makeText(getActivity(), "Add new Profile", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Please Add new Profile", Toast.LENGTH_LONG).show();
                         Add_Profile add_profile = new Add_Profile();
                         FragmentManager manager = getFragmentManager();
                         FragmentTransaction transaction = manager.beginTransaction();

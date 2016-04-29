@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import bubtjobs.com.icare.Activity.MainActivity;
 import bubtjobs.com.icare.Activity.PersonHome;
 import bubtjobs.com.icare.Adapter.ProfileViewAdapter;
 import bubtjobs.com.icare.Alarm_Manager.Alarm;
@@ -67,7 +68,7 @@ public class View_All_Profile extends Fragment {
                 sessionManager=new SessionManager(getActivity());
                 sessionManager.setCurrentPersonId(userId);
 
-                Toast.makeText(getActivity(), userId+""+username, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), userId+""+username, Toast.LENGTH_SHORT).show();
 
                 Intent intent=new Intent(getActivity(),PersonHome.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
@@ -78,9 +79,17 @@ public class View_All_Profile extends Fragment {
 
         // =========================== on item long click==============================
         profileListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
+                String userId=profileArrayList.get(position).getUserId();
+                String username=profileArrayList.get(position).getUserName();
+
+                sessionManager=new SessionManager(getActivity());
+                sessionManager.setCurrentPersonId(userId);
 
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 View promptsView = li.inflate(R.layout.alert_dialog_view_profile, null);
@@ -179,16 +188,34 @@ public class View_All_Profile extends Fragment {
 
                                             Toast.makeText(getActivity(),"Remove Successfully",Toast.LENGTH_LONG).show();
 
-                                            Fragment currentFragment;
-                                            FragmentManager fragmanager;
-                                            fragmanager=getFragmentManager();
-                                            FragmentTransaction transaction;
 
-                                            currentFragment=new View_All_Profile();
-                                            transaction = fragmanager.beginTransaction();
-                                            transaction.replace(R.id.homeFragment, currentFragment);
-                                            transaction.addToBackStack(null);
-                                            transaction.commit();
+                                            if(manager.getTotalUser()==false)
+                                            {
+//                                                Intent intent=new Intent(getActivity(), MainActivity.class);
+//                                                startActivity(intent);
+                                                Fragment currentFragment;
+                                                FragmentManager fragmanager;
+                                                fragmanager = getFragmentManager();
+                                                FragmentTransaction transaction;
+
+                                                currentFragment = new Add_Profile();
+                                                transaction = fragmanager.beginTransaction();
+                                                transaction.replace(R.id.homeFragment, currentFragment);
+                                                transaction.addToBackStack(null);
+                                                transaction.commit();
+                                            }
+                                            else {
+                                                Fragment currentFragment;
+                                                FragmentManager fragmanager;
+                                                fragmanager = getFragmentManager();
+                                                FragmentTransaction transaction;
+
+                                                currentFragment = new View_All_Profile();
+                                                transaction = fragmanager.beginTransaction();
+                                                transaction.replace(R.id.homeFragment, currentFragment);
+                                                transaction.addToBackStack(null);
+                                                transaction.commit();
+                                            }
 
                                         } else {
                                             Toast.makeText(getActivity(),"Remove Fail, Try Again",Toast.LENGTH_LONG).show();
@@ -208,17 +235,10 @@ public class View_All_Profile extends Fragment {
                 });
 
                 alertDialog.show();
-
-
                 return true;
             }
         });
 
-
         return view;
     }
-
-
-
-
 }

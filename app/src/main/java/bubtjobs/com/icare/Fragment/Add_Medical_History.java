@@ -2,6 +2,8 @@ package bubtjobs.com.icare.Fragment;
 
 
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -123,7 +125,17 @@ public class Add_Medical_History extends Fragment {
             YY=year1;
             MM=month1;
             DD=day1;
-            date_bt.setText(DD+"/"+MM+"/"+YY);
+
+
+
+            if(Integer.parseInt(YY+MM+DD)>Integer.parseInt(function.currentDate()))
+            {
+                Toast.makeText(getActivity(), "Please Select Valid Date", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                date_bt.setText(DD+"/"+MM+"/"+YY);
+            }
+
             //Toast.makeText(getActivity(), day1+"/"+month1+"/"+year1, Toast.LENGTH_SHORT).show();
 
         }
@@ -166,7 +178,8 @@ public class Add_Medical_History extends Fragment {
                     details_et.getText().clear();
                     name_et.getText().clear();
                     date_bt.setText("Pick Date");
-                    Toast.makeText(getActivity(), "Medial History Insert Successfully", Toast.LENGTH_SHORT).show();
+                    isPicTaken=false;
+                    Toast.makeText(getActivity(), "Add Medical History  Successfully", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -184,5 +197,13 @@ public class Add_Medical_History extends Fragment {
             Toast.makeText(getActivity(), "Please Insert All Fields", Toast.LENGTH_SHORT).show();
         }
 
+    }
+    @OnClick(R.id.cancel_bt)
+    public void cancel(){
+        GeneralInfo currentFragment=new GeneralInfo();
+        FragmentManager manager=getFragmentManager();
+        FragmentTransaction transaction=manager.beginTransaction();
+        transaction.replace(R.id.homeFragment,currentFragment);
+        transaction.commit();
     }
 }

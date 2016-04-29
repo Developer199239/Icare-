@@ -277,8 +277,11 @@ public class UpComming_Vaccination extends Fragment {
                 int currentHour = cal.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = cal.get(Calendar.MINUTE);
 
-                if (currentHour > Integer.parseInt(hour) || (Integer.parseInt(hour) == currentHour && currentMinute > Integer.parseInt(minute)) || (Integer.parseInt(hour) == currentHour && currentMinute == Integer.parseInt(minute))) {
+                Log.i("date12",function.currentDate()+"  "+date);
+
+                if (function.currentDate().equals(date) && (currentHour > Integer.parseInt(hour) || (Integer.parseInt(hour) == currentHour && currentMinute > Integer.parseInt(minute)) || (Integer.parseInt(hour) == currentHour && currentMinute == Integer.parseInt(minute)))) {
                     Toast.makeText(getActivity(), "Its not remove", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

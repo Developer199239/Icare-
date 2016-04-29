@@ -72,7 +72,11 @@ public class Add_Vaccination extends Fragment {
             String va_details=va_detatils_Et.getText().toString();
             String date=YY+MM+DD;
 
+
             Long value=function.validAlarm(YY, MM, DD, TimeFormat, H, M);
+
+
+            Log.i("time and date",YY+" "+MM+" "+DD+" "+value);
             if(value==-1)
             {
                 Toast.makeText(getActivity(), "Invalid date and time selection", Toast.LENGTH_SHORT).show();

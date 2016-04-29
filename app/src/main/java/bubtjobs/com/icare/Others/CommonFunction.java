@@ -1,6 +1,7 @@
 package bubtjobs.com.icare.Others;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -108,10 +109,16 @@ public class CommonFunction {
 
             int yearInterval=year-currentYear;
             int monthInterval=Math.abs(month-currentMonth);
-            int dayInterval=Math.abs(day-currentDay);
+            int dayInterval=0;
+            if(day>=currentDay)
+             dayInterval=Math.abs(day-currentDay);
+            else
+                dayInterval=Math.abs(currentDay-day-30);
 
             int hourInterval=Math.abs(requestHour-currentHour);
             int minuteInterval=Math.abs(requstMinute-currentMinute);
+
+            Log.i("time and date",yearInterval+"=year "+monthInterval+" =month "+dayInterval+" =day "+hourInterval+" hour "+minuteInterval);
 
             // Toast.makeText(getActivity(), yearInterval+" m="+monthInterval+" d "+dayInterval+" h "+hourInterval+" m "+minuteInterval, Toast.LENGTH_SHORT).show();
 
@@ -128,6 +135,8 @@ public class CommonFunction {
             Long Minute =Long.parseLong(String.valueOf(minuteInterval*minuteAlarmManager));
 
             Long finalInterval=Year+Month+Day+Hour+Minute-(secondAlarmManager*currentSecond);
+            Log.i("time and date",""+finalInterval);
+
             return finalInterval;
             //return " y="+Year+" m= "+Month+" d= "+Day+" h= "+Hour+"  m= "+Minute+" c="+currentHour;
         }

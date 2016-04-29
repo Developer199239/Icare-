@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import bubtjobs.com.icare.Activity.Home;
+import bubtjobs.com.icare.Activity.MainActivity;
 import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Model.Profile_Add;
 import bubtjobs.com.icare.Others.CommonFunction;
@@ -112,12 +113,9 @@ public class Add_Profile extends Fragment {
         startActivity(intent);
         }
         else{
-
-            Login login=new Login();
-            FragmentManager manager= getFragmentManager();
-            FragmentTransaction transaction=manager.beginTransaction();
-            transaction.replace(R.id.myFragment, login);
-            transaction.commit();
+            Intent intent=new Intent(getActivity(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
     }
 
@@ -152,7 +150,14 @@ public class Add_Profile extends Fragment {
 
 
               String age=(cal.get(Calendar.YEAR)-year1)+"."+month;
-                dob_bt.setText(age);
+                if(Double.parseDouble(age)<0)
+                {
+                    Toast.makeText(getActivity(), "Please Insert Valid date", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    dob_bt.setText(age);
+                }
+
             }
             else{
                 dob_bt.setText("0.1");
