@@ -104,7 +104,8 @@ public class Add_diet extends Fragment {
                         alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
                     }
                     else{
-                        alarm.setDailyAlarm(value,alarmcode,table,dietId,currentPersonId);
+                        alarm.setAlarm(value,alarmcode,table,dietId,currentPersonId);
+                       // alarm.setDailyAlarm(value,alarmcode,table,dietId,currentPersonId);
                     }
 
                     diet_Com.setSelection(0);

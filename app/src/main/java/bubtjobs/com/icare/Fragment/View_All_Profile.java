@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import bubtjobs.com.icare.Activity.Home;
 import bubtjobs.com.icare.Activity.MainActivity;
 import bubtjobs.com.icare.Activity.PersonHome;
 import bubtjobs.com.icare.Adapter.ProfileViewAdapter;
@@ -205,16 +206,19 @@ public class View_All_Profile extends Fragment {
                                                 transaction.commit();
                                             }
                                             else {
-                                                Fragment currentFragment;
-                                                FragmentManager fragmanager;
-                                                fragmanager = getFragmentManager();
-                                                FragmentTransaction transaction;
-
-                                                currentFragment = new View_All_Profile();
-                                                transaction = fragmanager.beginTransaction();
-                                                transaction.replace(R.id.homeFragment, currentFragment);
-                                                transaction.addToBackStack(null);
-                                                transaction.commit();
+//                                                Fragment currentFragment;
+//                                                FragmentManager fragmanager;
+//                                                fragmanager = getFragmentManager();
+//                                                FragmentTransaction transaction;
+//
+//                                                currentFragment = new View_All_Profile();
+//                                                transaction = fragmanager.beginTransaction();
+//                                                transaction.replace(R.id.homeFragment, currentFragment);
+//                                                transaction.addToBackStack(null);
+//                                                transaction.commit();
+                                                Intent intent=new Intent(getActivity(),Home.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                                                startActivity(intent);
                                             }
 
                                         } else {

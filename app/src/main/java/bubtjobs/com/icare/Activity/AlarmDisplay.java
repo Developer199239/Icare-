@@ -133,4 +133,12 @@ public class AlarmDisplay extends AppCompatActivity {
             ringTone.stop();
         }
     }
+
+    @Override
+    protected void onPause() {
+        if(ringTone!=null){
+            ringTone.stop();
+        }
+        super.onPause();
+    }
 }

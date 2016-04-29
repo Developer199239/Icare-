@@ -246,7 +246,8 @@ public class Today_diet_chart extends Fragment {
                                             alarm.setAlarm(value,Integer.parseInt(alarmCode),table,dietId,currentPersonId);
                                         }
                                         else{
-                                            alarm.setDailyAlarm(value,Integer.parseInt(alarmCode),table,dietId,currentPersonId);
+                                            alarm.setAlarm(value,Integer.parseInt(alarmCode),table,dietId,currentPersonId);
+                                            //alarm.setDailyAlarm(value,Integer.parseInt(alarmCode),table,dietId,currentPersonId);
                                         }
                                         Toast.makeText(getActivity(), "Update diet successfully ", Toast.LENGTH_SHORT).show();
 

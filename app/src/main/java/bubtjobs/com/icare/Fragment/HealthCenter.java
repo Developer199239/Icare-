@@ -4,12 +4,15 @@ package bubtjobs.com.icare.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
@@ -43,7 +46,6 @@ public class HealthCenter extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_health_center, container, false);
-
         hospitalListView=(ListView)view.findViewById(R.id.hospitalListView);
 
 

@@ -172,7 +172,7 @@ public class Medial_History_Adapter extends ArrayAdapter<Medical_History> {
 //
 //
 //
-//        viewHolder.pre_ib.setImageResource(R.drawable.app_logo_2);
+//        viewHolder.pre_ib.setImageResource(R.drawable.app_logo_3);
 
 
 //        viewHolder.sms_bt.setOnClickListener(new View.OnClickListener() {

@@ -15,7 +15,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import bubtjobs.com.icare.DataBase.DataBaseManager;
 import bubtjobs.com.icare.Fragment.Add_Doctor;
 import bubtjobs.com.icare.Fragment.Add_Medical_History;
 import bubtjobs.com.icare.Fragment.Add_Vaccination;
@@ -29,6 +31,7 @@ import bubtjobs.com.icare.Fragment.Today_diet_chart;
 import bubtjobs.com.icare.Fragment.UpComing_diet_chart;
 import bubtjobs.com.icare.Fragment.UpComming_Vaccination;
 import bubtjobs.com.icare.Fragment.View_All_Profile;
+import bubtjobs.com.icare.Others.SessionManager;
 import bubtjobs.com.icare.R;
 
 public class PersonHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +40,8 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
     FragmentManager manager;
     FragmentTransaction transaction;
     Toolbar toolbar;
+    DataBaseManager dataBaseManager;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,11 @@ public class PersonHome extends AppCompatActivity implements NavigationView.OnNa
     }
 
     private void init() {
-
+        dataBaseManager=new DataBaseManager(this);
+        sessionManager=new SessionManager(this);
+        String name=dataBaseManager.getPersonName(sessionManager.getCurrentPersonId());
+        TextView mTitle = (TextView) toolbar.findViewById(R.id.userNameTv);
+        mTitle.setText(name);
         currentFragment=new GeneralInfo();
         manager=getFragmentManager();
         transaction=manager.beginTransaction();
